@@ -10,7 +10,24 @@
 
   HOW TO EDIT
   ================================================================
-  All content lives in data blocks at the top of <script>:
+  All content lives in data blocks at the top of 
+<div class="lock-modal-mask" id="lock-modal-mask">
+  <div class="lock-modal">
+    <h2>Unlock contacts</h2>
+    <div class="sub">Phone numbers + emails for managers and key vendors</div>
+    <form id="lock-form" onsubmit="return false;">
+      <input type="password" id="lock-input" placeholder="Enter shared key…" autocomplete="off" autofocus>
+      <div class="actions">
+        <button type="button" class="cancel" id="lock-cancel">Cancel</button>
+        <button type="button" class="go" id="lock-go">Unlock</button>
+      </div>
+      <div class="err" id="lock-err">Wrong key. Try again.</div>
+      <div class="hint">Ask Joshua, Sam, or Tyler for the key.</div>
+    </form>
+  </div>
+</div>
+
+<script>:
     PEOPLE      — every named human, archetype, tier, dynamics
     ENTITIES    — the 4 businesses
     STANDARDS   — Day One operating principles
@@ -785,6 +802,98 @@
     .add-btn { width: 100%; text-align: center; }
   }
 
+  
+  /* ============================================================
+     CONTACTS LOCK / UNLOCK
+  ============================================================ */
+  .lock-btn { position: relative; }
+  body.contacts-unlocked .lock-btn {
+    color: #fff; border-color: #4ade80;
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    box-shadow: 0 6px 18px -6px rgba(74,222,128,0.6);
+  }
+  .lock-modal-mask {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    display: none; z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .lock-modal-mask.open { display: flex; }
+  .lock-modal {
+    background:
+      radial-gradient(ellipse at top right, rgba(176,38,255,0.18), transparent 60%),
+      var(--panel);
+    border: 2px solid var(--pink);
+    border-radius: 18px;
+    padding: 28px 30px;
+    width: min(420px, calc(100% - 32px));
+    box-shadow: 0 20px 60px -20px rgba(255,43,214,0.5);
+  }
+  .lock-modal h2 {
+    margin: 0 0 6px; font-size: 22px;
+    background: linear-gradient(120deg, #fff 0%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lock-modal .sub {
+    color: var(--ink-dim); font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px;
+    margin-bottom: 18px;
+  }
+  .lock-modal input[type=password] {
+    width: 100%; padding: 12px 16px;
+    background: var(--bg-2); color: var(--ink);
+    border: 2px solid var(--panel-edge);
+    border-radius: 100px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px; letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .lock-modal input[type=password]:focus {
+    outline: none; border-color: var(--pink); box-shadow: var(--glow-pink);
+  }
+  .lock-modal .actions { display: flex; gap: 10px; margin-top: 16px; }
+  .lock-modal .actions button {
+    flex: 1; padding: 12px; border-radius: 100px;
+    font-size: 11px; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 700;
+    transition: all 0.2s;
+    border: 2px solid var(--panel-edge);
+    background: transparent; color: var(--ink-dim);
+  }
+  .lock-modal .actions button.go {
+    color: #fff; border-color: var(--pink);
+    background: var(--grad-cta);
+    box-shadow: var(--glow-pink);
+  }
+  .lock-modal .err {
+    color: #fca5a5; font-size: 12px; margin-top: 10px;
+    font-family: "JetBrains Mono", monospace;
+    text-align: center; display: none;
+  }
+  .lock-modal .err.show { display: block; }
+  .lock-modal .hint {
+    color: var(--ink-faint); font-size: 10px; margin-top: 14px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px;
+    text-align: center;
+  }
+
+  /* Phone line on person card */
+  .person .contact-line {
+    display: none;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed var(--panel-edge);
+    color: var(--orange); font-size: 13px;
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.5px; font-weight: 500;
+  }
+  body.contacts-unlocked .person .contact-line { display: block; }
+  .person .contact-line a { color: var(--orange); text-decoration: none; }
+  .person .contact-line a:hover { color: var(--pink); }
+
   @media print {
     nav.tabs, .people-controls, .drawer, .drawer-mask, .header-actions, .add-btn, .edit-actions { display: none !important; }
     section.view { display: block !important; page-break-after: always; }
@@ -802,6 +911,7 @@
   <div class="header-actions">
     <span class="edit-indicator">EDIT MODE</span>
     <span class="edited-badge" title="Local edits are saved in this browser">EDITED</span>
+    <button id="lock-toggle" class="header-btn lock-btn" title="Unlock contact info">&#128274; Contacts</button>
     <div class="version-pill">v2 · May 2026</div>
     <button id="edit-toggle" class="header-btn" title="Toggle edit mode">&#9998; Edit</button>
     <div class="export-menu">
@@ -1865,6 +1975,7 @@ function renderEntitySection(entityKey, filter, tier, overrideTitle) {
             <div class="badges">
               ${(p.badges||[]).map(b => `<span class="badge ${b}">${b.replace('-', ' ')}</span>`).join('')}
             </div>
+            ${p.phone ? `<div class="contact-line">&#9742; <a href="tel:${p.phone.replace(/[^0-9+]/g, '')}">${p.phone}</a></div>` : ''}
           </div>
         `).join('')}
       </div>
@@ -2540,6 +2651,114 @@ renderCadences();
 renderFlows();
 renderStandards();
 renderBreakGlass();
+
+
+// ============================================================
+// CONTACTS ENCRYPTION GATE
+// ============================================================
+const CONTACTS_BLOB = "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";
+const CONTACTS_KEY = "atlas-v2-contacts-unlocked";
+
+async function decryptContacts(password) {
+  const blobRaw = Uint8Array.from(atob(CONTACTS_BLOB), c => c.charCodeAt(0));
+  const salt = blobRaw.slice(0, 16);
+  const iv = blobRaw.slice(16, 28);
+  const cipherWithTag = blobRaw.slice(28);
+
+  const enc = new TextEncoder();
+  const passwordKey = await crypto.subtle.importKey(
+    'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: salt, iterations: 250000, hash: 'SHA-256' },
+    passwordKey,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['decrypt']
+  );
+  const decrypted = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    cipherWithTag
+  );
+  return JSON.parse(new TextDecoder().decode(decrypted));
+}
+
+function injectContacts(contacts) {
+  for (const p of PEOPLE) {
+    const c = contacts[p.id];
+    if (!c) continue;
+    if (c.phone) p.phone = c.phone;
+    if (c.contact_label) p.contact_label = c.contact_label;
+  }
+  document.body.classList.add('contacts-unlocked');
+  const btn = document.getElementById('lock-toggle');
+  if (btn) btn.innerHTML = '&#128275; Unlocked';
+  renderAll();
+}
+
+function clearContacts() {
+  // Re-load defaults from the file's PEOPLE data by reloading
+  try { sessionStorage.removeItem(CONTACTS_KEY); } catch(e) {}
+  location.reload();
+}
+
+async function tryUnlock(password) {
+  try {
+    const contacts = await decryptContacts(password);
+    try { sessionStorage.setItem(CONTACTS_KEY, password); } catch(e) {}
+    injectContacts(contacts);
+    closeLockModal();
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function openLockModal() {
+  document.getElementById('lock-modal-mask').classList.add('open');
+  document.getElementById('lock-err').classList.remove('show');
+  document.getElementById('lock-input').value = '';
+  setTimeout(() => document.getElementById('lock-input').focus(), 50);
+}
+function closeLockModal() {
+  document.getElementById('lock-modal-mask').classList.remove('open');
+}
+
+document.getElementById('lock-toggle').addEventListener('click', () => {
+  if (document.body.classList.contains('contacts-unlocked')) {
+    if (confirm('Hide contacts and reload the page?')) clearContacts();
+  } else {
+    openLockModal();
+  }
+});
+document.getElementById('lock-cancel').addEventListener('click', closeLockModal);
+document.getElementById('lock-go').addEventListener('click', async () => {
+  const pw = document.getElementById('lock-input').value;
+  const ok = await tryUnlock(pw);
+  if (!ok) document.getElementById('lock-err').classList.add('show');
+});
+document.getElementById('lock-input').addEventListener('keydown', async (e) => {
+  if (e.key === 'Enter') {
+    const ok = await tryUnlock(document.getElementById('lock-input').value);
+    if (!ok) document.getElementById('lock-err').classList.add('show');
+  }
+});
+document.getElementById('lock-modal-mask').addEventListener('click', (e) => {
+  if (e.target.id === 'lock-modal-mask') closeLockModal();
+});
+
+// Auto-unlock if session has the password cached
+(async () => {
+  try {
+    const cached = sessionStorage.getItem(CONTACTS_KEY);
+    if (cached) {
+      const contacts = await decryptContacts(cached);
+      injectContacts(contacts);
+    }
+  } catch (e) { /* ignore */ }
+})();
+
 </script>
 </body>
 </html>
