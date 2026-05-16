@@ -11,22 +11,6 @@
   HOW TO EDIT
   ================================================================
   All content lives in data blocks at the top of 
-<div class="lock-modal-mask" id="lock-modal-mask">
-  <div class="lock-modal">
-    <h2>Unlock contacts</h2>
-    <div class="sub">Phone numbers + emails for managers and key vendors</div>
-    <form id="lock-form" onsubmit="return false;">
-      <input type="password" id="lock-input" placeholder="Enter shared key…" autocomplete="off" autofocus>
-      <div class="actions">
-        <button type="button" class="cancel" id="lock-cancel">Cancel</button>
-        <button type="button" class="go" id="lock-go">Unlock</button>
-      </div>
-      <div class="err" id="lock-err">Wrong key. Try again.</div>
-      <div class="hint">Ask Joshua, Sam, or Tyler for the key.</div>
-    </form>
-  </div>
-</div>
-
 <script>:
     PEOPLE      — every named human, archetype, tier, dynamics
     ENTITIES    — the 4 businesses
@@ -950,6 +934,22 @@
   <button class="close" id="drawer-close">×</button>
   <div id="drawer-body"></div>
 </aside>
+
+<div class="lock-modal-mask" id="lock-modal-mask">
+  <div class="lock-modal">
+    <h2>Unlock contacts</h2>
+    <div class="sub">Phone numbers + emails for managers and key vendors</div>
+    <form id="lock-form" onsubmit="return false;">
+      <input type="password" id="lock-input" placeholder="Enter shared key…" autocomplete="off" autofocus>
+      <div class="actions">
+        <button type="button" class="cancel" id="lock-cancel">Cancel</button>
+        <button type="button" class="go" id="lock-go">Unlock</button>
+      </div>
+      <div class="err" id="lock-err">Wrong key. Try again.</div>
+      <div class="hint">Ask Joshua, Sam, or Tyler for the key.</div>
+    </form>
+  </div>
+</div>
 
 <script>
 // Capture the original script source text BEFORE any mutation, so Export HTML
