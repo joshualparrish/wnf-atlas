@@ -707,6 +707,69 @@
   .badge.team { background: rgba(154,160,176,0.1); color: var(--ink-dim); border-color: rgba(154,160,176,0.3); }
   .tree-node.team { border-color: var(--panel-edge); color: var(--ink-dim); border-style: dashed; }
 
+
+  /* ============================================================
+     TIER LANDING — sections by tier, cards show entity chip
+  ============================================================ */
+  .tier-section { margin-bottom: 40px; }
+  .tier-section .tier-header {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .tier-section h2 {
+    font-size: 22px; margin: 0;
+    font-family: "Archivo Black", Impact, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tier-section h2.el-jefe        { background: linear-gradient(120deg, var(--orange) 0%, var(--pink) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .tier-section h2.commander      { background: linear-gradient(120deg, var(--pink) 0%, var(--violet) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .tier-section h2.senior-operator{ color: #d6a8ff; }
+  .tier-section h2.ops-assistant  { color: var(--orange); }
+  .tier-section h2.squad-lead     { color: #7dd3fc; }
+  .tier-section h2.rogue-ranger   { color: #86efac; }
+  .tier-section h2.signal-carrier { color: #fcc88a; }
+  .tier-section h2.team           { color: var(--ink-dim); }
+  .tier-section h2.external       { color: var(--ink-dim); }
+  .tier-section h2.ai-future      { color: #d6a8ff; }
+  .tier-section .tier-meta {
+    color: var(--ink-dim); font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px;
+  }
+  .tier-section .tier-meta.open { color: var(--orange); }
+  .tier-section .tier-desc {
+    color: var(--ink-dim); font-size: 12px; margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  /* Entity chip on each card */
+  .person .entity-chip {
+    display: inline-block;
+    font-size: 9px; padding: 3px 10px; border-radius: 100px;
+    background: rgba(255,62,200,0.1); color: var(--pink);
+    border: 1px solid rgba(255,62,200,0.3);
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 700;
+    font-family: "JetBrains Mono", monospace;
+    margin-bottom: 8px;
+  }
+  .person .entity-chip.cafe   { background: rgba(255,163,58,0.1); color: var(--orange); border-color: rgba(255,163,58,0.35); }
+  .person .entity-chip.invert { background: rgba(176,38,255,0.12); color: #d6a8ff; border-color: rgba(176,38,255,0.35); }
+  .person .entity-chip.tao    { background: rgba(56,189,248,0.1); color: #7dd3fc; border-color: rgba(56,189,248,0.35); }
+  .person .entity-chip.all    { background: linear-gradient(135deg, rgba(255,62,200,0.15), rgba(176,38,255,0.15)); color: #fff; border-color: var(--pink); }
+
+  /* Empty seat card (placeholder for open Squad Lead seats) */
+  .person.open-seat {
+    border: 2px dashed rgba(255,163,58,0.5);
+    background: transparent;
+    text-align: center;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 140px;
+    color: var(--orange);
+    cursor: default;
+  }
+  .person.open-seat:hover { transform: none; box-shadow: none; }
+  .person.open-seat::before { display: none; }
+
   /* ============================================================
      WNF MARKET HIERARCHY — new tier classes
   ============================================================ */
@@ -1235,7 +1298,7 @@ let PEOPLE = [
   {
     id: "angela", name: "Angela", entity: "cafe",
     role: "Café Manager · hospitality anchor · loyal executor",
-    tier: "tier-1",
+    tier: "commander",
     phone: "",
     contact_label: "Ask a manager for contact info",
     badges: ["passion"],
@@ -1251,7 +1314,7 @@ let PEOPLE = [
   {
     id: "will", name: "Will", entity: "cafe",
     role: "Café co-manager · ordering + supplies",
-    tier: "tier-2",
+    tier: "senior-operator",
     phone: "",
     contact_label: "Ask a manager for contact info",
     badges: [],
@@ -1267,7 +1330,7 @@ let PEOPLE = [
   {
     id: "noah", name: "Noah", entity: "cafe",
     role: "Café Lead · CS strength · Toast POS pro",
-    tier: "tier-2",
+    tier: "squad-lead",
     phone: "",
     contact_label: "Ask a manager for contact info",
     badges: ["passion"],
@@ -1283,7 +1346,7 @@ let PEOPLE = [
   {
     id: "dylan", name: "Dylan", entity: "cafe",
     role: "Café Lead · guest hospitality strength",
-    tier: "tier-2",
+    tier: "squad-lead",
     phone: "",
     contact_label: "Ask a manager for contact info",
     badges: ["passion"],
@@ -1589,18 +1652,18 @@ let PEOPLE = [
     watch_outs: "ROOKIES (current): [edit here — names of staff in 30-day eval]. RECRUITS (current): [edit here — names of staff in first 1–2 weeks]. Watch how Sam, Tyler, and any Squad Leads on shift handle customers — that's the standard."
   },
   {
-    id: "cafe_crew", name: "Café Team (line + counter + baristas)", entity: "cafe",
-    role: "Café floor and kitchen team",
-    tier: "tier-3",
+    id: "cafe_crew", name: "Rookies & Recruits — Café roster", entity: "cafe",
+    role: "Aggregate seat · individual cards not maintained · update names here",
+    tier: "team",
     badges: [],
-    summary: "The Café team — line cooks, counter, and baristas who deliver the Café guest experience every service.",
+    summary: "Line cooks, counter, baristas in their first 1–2 weeks (Recruits) or 30-day eval (Rookies). Rotate fast — individual cards aren't maintained. Update the roster below.",
     reports_to: "noah + dylan + angela",
     direct_reports: [],
     decision_authority: "Within shift scope.",
     systems: "Toast",
     archetype: "Passion drives the Café experience",
     cross_entity: "—",
-    watch_outs: "If you're new to the Café team, work alongside Noah and Dylan to learn how the service standard reads on the floor."
+    watch_outs: "ROOKIES (current): [edit here]. RECRUITS (current): [edit here]. Work alongside Noah and Dylan to learn the standard."
   }
 ];
 
@@ -1955,12 +2018,18 @@ function renderPeople(filter = "", tier = "all") {
     </div>
     <button class="add-btn" data-add="person">+ Add Person</button>
     <div class="info-banner">
-      <strong>How to read this.</strong> Cards are grouped by entity (Market, Café, INVERT, plus across-the-business roles). Filter pills narrow by role type. Click any card to open the full profile. The customer experience is at the heart of what we do — every role on this chart supports that work.
+      <strong>The WNF Market hierarchy is the landing page.</strong> Tiers organize the team top-to-bottom: <strong>El Jefe</strong> → <strong>Commander</strong> → <strong>Senior Operator</strong> → <strong>Ops Assistant</strong> → <strong>Squad Lead</strong> → <strong>Rogue Ranger</strong> → <strong>Signal Carrier</strong> → <strong>Rookies &amp; Recruits</strong>. Each card shows the business (Market, Café, INVERT). Slots below Senior Operator are open until promotion conversations land.
     </div>
-    ${renderEntitySection("market", filter, tier)}
-    ${renderEntitySection("cafe", filter, tier)}
-    ${renderEntitySection("invert", filter, tier)}
-    ${renderEntitySection("all", filter, tier, "Across / External / AI")}
+    ${renderTierSection('el-jefe', 'El Jefe', 'Final authority and leader of the entire operation.', filter, tier)}
+    ${renderTierSection('commander', 'Commander', 'Primary change agents and floor leaders. Drive culture, maintain standards, run the floor with full authority.', filter, tier)}
+    ${renderTierSection('senior-operator', 'Senior Operator', 'Long-tenured systems owner. Manages scheduling, ordering, inventory, and operational systems that keep the store running.', filter, tier)}
+    ${renderTierSection('ops-assistant', 'Ops Assistant', 'Direct extension of El Jefe. Special projects, communication, operational support.', filter, tier)}
+    ${renderTierSection('squad-lead', 'Squad Lead', 'Floor-level leadership. When no Commander is present, Squad Lead is the highest authority on the floor and prioritizes guest amazement.', filter, tier)}
+    ${renderTierSection('rogue-ranger', 'Rogue Ranger', 'Elite team member with high autonomy and strong leadership presence on the floor.', filter, tier)}
+    ${renderTierSection('signal-carrier', 'Signal Carrier', 'Core team member who consistently delivers guest amazement and calls out problems in real time.', filter, tier)}
+    ${renderTierSection('team', 'Rookies, Recruits &amp; Team — pending hierarchy', 'Aggregate rosters and team members not yet assigned a tier. Promotion conversations will move them up.', filter, tier)}
+    ${renderTierSection('external', 'External Partners', 'Vendors, contractors, accounting, restoration services. Not part of the WNF hierarchy.', filter, tier)}
+    ${renderTierSection('ai-future', 'AI / Future Seats', 'Speculative roles and tools on the 12-month roadmap.', filter, tier)}
   `;
 
   document.getElementById("search").addEventListener("input", e => renderPeople(e.target.value, tier));
@@ -1970,7 +2039,7 @@ function renderPeople(filter = "", tier = "all") {
   el.querySelectorAll(".person").forEach(node => {
     node.addEventListener("click", (ev) => {
       if (ev.target.closest(".edit-actions")) return;
-      openDrawer(node.dataset.id);
+      if (node.dataset.id) openDrawer(node.dataset.id);
     });
   });
   el.querySelectorAll(".edit-actions [data-edit-person]").forEach(btn => {
@@ -1994,6 +2063,86 @@ function renderPeople(filter = "", tier = "all") {
   el.querySelectorAll("[data-add='person']").forEach(btn => {
     btn.addEventListener("click", () => openPersonEditor(null));
   });
+}
+
+function entityChipLabel(entity) {
+  if (entity === 'market') return 'WNF Market';
+  if (entity === 'cafe')   return 'WNF Café';
+  if (entity === 'invert') return 'INVERT';
+  if (entity === 'tao')    return 'Tao Capital';
+  if (entity === 'all')    return 'All entities';
+  return entity;
+}
+
+function renderTierSection(tierKey, label, desc, filter, currentTier) {
+  const f = filter.toLowerCase();
+  let filtered = PEOPLE.filter(p => {
+    if (p.tier !== tierKey) return false;
+    if (currentTier !== "all") {
+      if (currentTier === "og" && !(p.badges||[]).includes("og")) return false;
+      else if (currentTier !== "og" && p.tier !== currentTier && !(currentTier === 'external' && p.tier === 'external')) return false;
+    }
+    if (f && !p.name.toLowerCase().includes(f) && !p.role.toLowerCase().includes(f) && !((p.nick||"").toLowerCase().includes(f))) return false;
+    return true;
+  });
+
+  // For Squad Lead: if filter is 'all' or 'squad-lead' and Market has fewer than 3, show open seats
+  let openSeats = '';
+  if (tierKey === 'squad-lead' && (currentTier === 'all' || currentTier === 'squad-lead')) {
+    const realSeats = filtered.filter(p => p.id !== 'floor_lead_bench').length;
+    const benchIncluded = filtered.some(p => p.id === 'floor_lead_bench');
+    if (benchIncluded) {
+      // The bench card represents 3 seats; no extra placeholders needed
+    } else {
+      const need = Math.max(0, 3 - realSeats);
+      for (let i = 0; i < need; i++) {
+        openSeats += '<div class="person open-seat">+ Open seat — pending promotion</div>';
+      }
+    }
+  }
+
+  // For Rogue Ranger / Signal Carrier — show "open" indicator if empty
+  let openMessage = '';
+  if (filtered.length === 0 && ['rogue-ranger','signal-carrier'].includes(tierKey) && (currentTier === 'all' || currentTier === tierKey)) {
+    openMessage = '<div class="person open-seat">+ Open — pending promotion conversations</div>';
+  }
+
+  if (filtered.length === 0 && !openMessage && !openSeats) return '';
+
+  const metaCount = filtered.length === 0 ? 'open' : `${filtered.length} ${filtered.length === 1 ? 'seat' : 'seats'}`;
+  const metaClass = filtered.length === 0 ? 'tier-meta open' : 'tier-meta';
+
+  return `
+    <div class="tier-section">
+      <div class="tier-header">
+        <h2 class="${tierKey}">${label}</h2>
+        <span class="${metaClass}">${metaCount}</span>
+      </div>
+      <div class="tier-desc">${desc}</div>
+      <div class="people-grid">
+        ${filtered.map(p => `
+          <div class="person ${p.tier}" data-id="${p.id}">
+            <div class="edit-actions">
+              <button data-edit-person="${p.id}" title="Edit">&#9998;</button>
+              <button class="del" data-del-person="${p.id}" title="Delete">&times;</button>
+            </div>
+            <span class="entity-chip ${p.entity}">${entityChipLabel(p.entity)}</span>
+            <div class="row">
+              <h4>${p.name} ${p.nick ? `<span class="nick">"${p.nick}"</span>` : ''}</h4>
+            </div>
+            <div class="role">${p.role}</div>
+            <div class="summary">${p.summary}</div>
+            <div class="badges">
+              ${(p.badges||[]).map(b => `<span class="badge ${b}">${b.replace('-', ' ')}</span>`).join('')}
+            </div>
+            ${p.phone ? `<div class="contact-line">&#9742; <a href="tel:${p.phone.replace(/[^0-9+]/g, '')}">${p.phone}</a></div>` : ''}
+          </div>
+        `).join('')}
+        ${openSeats}
+        ${openMessage}
+      </div>
+    </div>
+  `;
 }
 
 function renderEntitySection(entityKey, filter, tier, overrideTitle) {
