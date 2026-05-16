@@ -1,0 +1,2545 @@
+<!--
+  JOSHUA PARRISH — OPERATING ATLAS v2
+  ================================================================
+  Full atlas across all four entities:
+    WNF Market · WNF Café · INVERT INC · Tao Capital / NOFONE
+
+  Built for the new Ops Assistant (chief-of-staff scope), but
+  usable by any new hire, future EA, or anyone in Joshua's orbit
+  who needs to plug in fast.
+
+  HOW TO EDIT
+  ================================================================
+  All content lives in data blocks at the top of <script>:
+    PEOPLE      — every named human, archetype, tier, dynamics
+    ENTITIES    — the 4 businesses
+    STANDARDS   — Day One operating principles
+    BREAK_GLASS — emergency playbook + urgency triage
+    WEEK        — Joshua's operating rhythm
+    FLOWS       — cross-entity touchpoints
+
+  Edit, save, refresh. Renders.
+
+  Markers:
+    [VERIFY]   — placeholder, Joshua needs to confirm
+    (open)     — known gap, will be filled later
+================================================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Operating Atlas — Joshua Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05060a;
+    --bg-2: #0a0c12;
+    --panel: #0d0f15;
+    --panel-2: #11141c;
+    --panel-edge: #1d2230;
+    --ink: #f5f5f7;
+    --ink-dim: #9aa0b0;
+    --ink-faint: #5a6271;
+
+    --magenta: #ff2bd6;
+    --pink: #FF3EC8;
+    --violet: #b026ff;
+    --orange: #FFA33A;
+    --accent: var(--pink);
+
+    --t1: #FF3EC8;
+    --t2: #b026ff;
+    --t3: #FFA33A;
+    --filled: #4ade80;
+    --joshua: var(--orange);
+    --hiring: var(--orange);
+    --open: #ef4444;
+    --ai-future: var(--violet);
+
+    --grad-cta: linear-gradient(135deg, #ff2bd6 0%, #b026ff 100%);
+    --grad-hover: linear-gradient(120deg, #FF3EC8, #FFA33A);
+    --glow-pink: 0 10px 30px -10px rgba(255,43,214,0.45);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background:
+      radial-gradient(ellipse at top right, rgba(176,38,255,0.10), transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(255,43,214,0.08), transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: "Archivo Black", Impact, system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+  }
+  a { color: var(--pink); }
+
+  /* ============================================================
+     BRAND MARKS — WNF block logo + INVERT inverted wordmark
+  ============================================================ */
+  .wnf-mark {
+    display: inline-block;
+    font-family: "Archivo Black", Impact, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+    background: var(--grad-cta);
+    color: #fff;
+    -webkit-text-fill-color: #fff; /* override gradient-fill parents */
+    box-shadow: 0 4px 14px -6px rgba(255,43,214,0.6);
+    line-height: 1;
+    vertical-align: baseline;
+    text-transform: uppercase;
+    margin-right: 0.15em;
+  }
+  /* gradient-text variant for places where a solid block is too heavy */
+  .wnf-text {
+    display: inline-block;
+    font-family: "Archivo Black", Impact, sans-serif;
+    background: linear-gradient(120deg, var(--pink) 0%, var(--violet) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.01em;
+  }
+  .invert-mark {
+    display: inline-block;
+    font-family: "Archivo Black", Impact, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transform: rotate(180deg);
+    color: var(--ink);
+    -webkit-text-fill-color: var(--ink); /* override gradient-fill parents */
+    margin-right: 0.18em;
+    line-height: 1;
+  }
+
+  header.top {
+    padding: 30px 32px 20px; border-bottom: 1px solid var(--panel-edge);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+    flex-wrap: wrap; position: relative;
+  }
+  header.top::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 20% 0%, rgba(255,43,214,0.10), transparent 60%);
+  }
+  header.top > * { position: relative; }
+  header.top h1 {
+    margin: 0 0 4px; font-size: 30px; letter-spacing: 0.5px;
+    background: linear-gradient(120deg, #fff 0%, #FF3EC8 60%, #b026ff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header.top .sub {
+    color: var(--ink-dim); font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .version-pill {
+    background: linear-gradient(135deg, rgba(255,43,214,0.15), rgba(176,38,255,0.15));
+    border: 1px solid var(--pink); color: var(--pink);
+    padding: 8px 14px; border-radius: 100px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    font-family: "JetBrains Mono", monospace;
+    box-shadow: var(--glow-pink);
+  }
+
+  nav.tabs {
+    display: flex; gap: 6px; padding: 14px 32px;
+    background: rgba(5,6,10,0.7); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--panel-edge);
+    position: sticky; top: 0; z-index: 10;
+    overflow-x: auto;
+  }
+  nav.tabs button {
+    background: transparent; color: var(--ink-dim);
+    border: 2px solid transparent;
+    padding: 8px 18px; font-size: 11px; cursor: pointer;
+    border-radius: 100px; white-space: nowrap;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 500;
+    transition: all 0.2s;
+  }
+  nav.tabs button.active {
+    color: #fff; border-color: var(--pink);
+    background: var(--grad-cta);
+    box-shadow: var(--glow-pink);
+  }
+  nav.tabs button:hover:not(.active) { color: var(--pink); border-color: rgba(255,62,200,0.4); }
+
+  main { padding: 28px 32px 80px; max-width: 1600px; margin: 0 auto; }
+  section.view { display: none; }
+  section.view.active { display: block; }
+
+  .placeholder, .info-banner {
+    background: linear-gradient(135deg, rgba(255,43,214,0.08), rgba(176,38,255,0.05));
+    border: 1px solid rgba(255,62,200,0.3);
+    color: var(--ink); padding: 12px 16px; border-radius: 12px;
+    font-size: 12px; margin: 0 0 18px; line-height: 1.6;
+  }
+  .placeholder strong, .info-banner strong { color: var(--pink); }
+
+  /* ============================================================
+     PEOPLE VIEW
+  ============================================================ */
+  .people-controls {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; align-items: center;
+  }
+  .search {
+    flex: 1; min-width: 280px; max-width: 380px;
+    background: var(--panel); color: var(--ink);
+    border: 2px solid var(--panel-edge);
+    padding: 12px 18px; border-radius: 100px; font-size: 13px;
+    font-family: "Space Grotesk", sans-serif; transition: all 0.2s;
+  }
+  .search:focus { outline: none; border-color: var(--pink); box-shadow: var(--glow-pink); }
+  .search::placeholder {
+    color: var(--ink-faint); font-family: "JetBrains Mono", monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.1px;
+  }
+  .filter-pill {
+    background: transparent; border: 2px solid var(--panel-edge);
+    color: var(--ink-dim); padding: 8px 14px; border-radius: 100px;
+    font-size: 10px; font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-pill:hover { color: var(--pink); border-color: rgba(255,62,200,0.4); }
+  .filter-pill.active {
+    color: #fff; border-color: var(--pink); background: var(--grad-cta);
+    box-shadow: var(--glow-pink);
+  }
+
+  .entity-section { margin-bottom: 36px; }
+  .entity-section h2 {
+    font-size: 22px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .entity-section .entity-tag {
+    color: var(--pink); font-size: 10px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    margin-bottom: 14px; display: block;
+  }
+
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  .person {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge);
+    border-radius: 14px; padding: 18px;
+    cursor: pointer; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .person::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad-cta); opacity: 0; transition: opacity 0.2s;
+  }
+  .person:hover { border-color: var(--pink); transform: translateY(-2px); box-shadow: var(--glow-pink); }
+  .person:hover::before { opacity: 1; }
+  .person.tier-1::before { background: linear-gradient(90deg, var(--t1), var(--t2)); opacity: 0.6; }
+  .person.tier-2::before { background: var(--t2); opacity: 0.5; }
+  .person .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .person h4 {
+    margin: 0; font-size: 15px;
+    font-family: "Archivo Black", Impact, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .person .nick {
+    color: var(--orange); font-weight: 500; font-size: 13px;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: none; letter-spacing: 0;
+  }
+  .person .role {
+    color: var(--pink); font-size: 10px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; margin-top: 4px;
+  }
+  .person .summary { color: var(--ink); font-size: 13px; margin-top: 10px; line-height: 1.55; }
+  .person .badges { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+
+  .badge {
+    font-size: 9px; padding: 3px 10px; border-radius: 100px;
+    background: #1f2530; color: var(--ink-dim);
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 600;
+    font-family: "JetBrains Mono", monospace;
+    border: 1px solid transparent;
+  }
+  .badge.tier-1 { background: rgba(255,62,200,0.15); color: var(--pink); border-color: rgba(255,62,200,0.4); }
+  .badge.tier-2 { background: rgba(176,38,255,0.18); color: #d6a8ff; border-color: rgba(176,38,255,0.4); }
+  .badge.tier-3 { background: rgba(255,163,58,0.15); color: var(--orange); border-color: rgba(255,163,58,0.4); }
+  .badge.knowledge { background: rgba(56,189,248,0.12); color: #7dd3fc; border-color: rgba(56,189,248,0.3); }
+  .badge.passion { background: rgba(255,163,58,0.15); color: var(--orange); border-color: rgba(255,163,58,0.4); }
+  .badge.cross-entity { background: rgba(176,38,255,0.18); color: #d6a8ff; border-color: rgba(176,38,255,0.4); }
+  .badge.dev { background: rgba(74,222,128,0.12); color: #86efac; border-color: rgba(74,222,128,0.3); }
+  .badge.watch { background: rgba(239,68,68,0.12); color: #fca5a5; border-color: rgba(239,68,68,0.3); }
+  .badge.hiring { background: rgba(255,163,58,0.15); color: var(--orange); border-color: rgba(255,163,58,0.4); }
+  .badge.external { background: rgba(154,160,176,0.1); color: var(--ink-dim); border-color: rgba(154,160,176,0.2); }
+  .badge.ai-future {
+    background: rgba(176,38,255,0.18); color: #d6a8ff;
+    border-color: rgba(176,38,255,0.4);
+    border-style: dashed;
+  }
+
+  /* drawer */
+  .drawer-mask {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    display: none; z-index: 50;
+  }
+  .drawer-mask.open { display: block; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100vh; width: min(480px, 100%);
+    background:
+      radial-gradient(ellipse at top right, rgba(176,38,255,0.12), transparent 50%),
+      var(--panel);
+    border-left: 2px solid var(--pink);
+    box-shadow: -10px 0 40px -10px rgba(255,43,214,0.4);
+    transform: translateX(100%); transition: transform 0.25s ease;
+    z-index: 51; padding: 28px 30px; overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer .close {
+    position: absolute; top: 14px; right: 16px;
+    background: transparent; color: var(--ink-dim); border: 0;
+    cursor: pointer; font-size: 22px;
+  }
+  .drawer h2 {
+    margin: 0 0 4px; font-size: 26px;
+    background: linear-gradient(120deg, #fff 0%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .drawer .nick-big { color: var(--orange); font-weight: 500; margin-bottom: 8px; font-size: 15px; }
+  .drawer .role-big {
+    color: var(--pink); font-size: 10px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 14px;
+  }
+  .drawer .badges { margin-bottom: 16px; }
+  .drawer .field { margin-bottom: 16px; }
+  .drawer .label {
+    color: var(--pink); font-size: 9px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.3px;
+    margin-bottom: 6px; font-weight: 500;
+  }
+  .drawer .value { font-size: 13px; color: var(--ink); line-height: 1.55; }
+  .drawer .value.dim { color: var(--ink-dim); }
+  .verify { color: var(--orange); font-size: 11px; font-style: italic; }
+
+  /* ============================================================
+     TREE VIEW
+  ============================================================ */
+  .tree-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  @media (max-width: 1100px) { .tree-grid { grid-template-columns: 1fr; } }
+  .tree-entity {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge);
+    border-radius: 16px; padding: 20px;
+  }
+  .tree-entity h3 {
+    font-size: 16px; margin: 0 0 4px;
+    background: linear-gradient(120deg, #fff 0%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tree-entity .entity-meta {
+    color: var(--pink); font-size: 10px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 16px;
+  }
+  .tree-tier {
+    display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0;
+    border-top: 1px dashed var(--panel-edge);
+    margin-top: 8px;
+  }
+  .tree-tier:first-of-type { border-top: 0; padding-top: 0; }
+  .tree-tier .tier-label {
+    width: 100%; color: var(--ink-faint); font-size: 9px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;
+  }
+  .tree-node {
+    background: var(--bg-2); border: 1px solid var(--panel-edge);
+    border-radius: 100px; padding: 6px 14px;
+    font-size: 12px; cursor: pointer; transition: all 0.15s;
+  }
+  .tree-node:hover { border-color: var(--pink); color: var(--pink); }
+  .tree-node.tier-1 { border-color: rgba(255,62,200,0.5); color: var(--pink); }
+  .tree-node.tier-2 { border-color: rgba(176,38,255,0.5); color: #d6a8ff; }
+  .tree-node.cross { border-color: rgba(176,38,255,0.4); border-style: dashed; }
+
+  /* ============================================================
+     CADENCES VIEW
+  ============================================================ */
+  .week-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+    margin-bottom: 20px;
+  }
+  .day-col {
+    background: var(--panel); border: 1px solid var(--panel-edge);
+    border-radius: 12px; padding: 10px; min-height: 200px;
+  }
+  .day-col h5 {
+    margin: 0 0 8px; font-size: 11px; text-align: center;
+    color: var(--pink); font-family: "JetBrains Mono", monospace;
+    letter-spacing: 1.1px;
+  }
+  .day-col .block {
+    border-radius: 8px; padding: 6px 8px; margin-bottom: 4px;
+    font-size: 11px; line-height: 1.3;
+  }
+  .block.macro { background: rgba(255,62,200,0.18); color: #ffaee5; border-left: 2px solid var(--pink); }
+  .block.store { background: rgba(255,163,58,0.15); color: #fcc88a; border-left: 2px solid var(--orange); }
+  .block.portfolio { background: rgba(176,38,255,0.18); color: #d6a8ff; border-left: 2px solid var(--violet); }
+  .block.invert { background: rgba(56,189,248,0.12); color: #7dd3fc; border-left: 2px solid #38bdf8; }
+  .block.note { background: rgba(154,160,176,0.08); color: var(--ink-dim); font-style: italic; }
+
+  .rhythm-rules {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;
+  }
+  .rule-card {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge); border-radius: 14px; padding: 16px 18px;
+  }
+  .rule-card h4 { margin: 0 0 8px; font-size: 13px; color: var(--pink); }
+  .rule-card .body { font-size: 13px; color: var(--ink); line-height: 1.55; }
+
+  /* ============================================================
+     FLOWS VIEW
+  ============================================================ */
+  .flow {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge);
+    border-left: 3px solid var(--violet);
+    border-radius: 14px; padding: 16px 18px; margin-bottom: 12px;
+  }
+  .flow h4 {
+    margin: 0 0 4px; font-size: 14px;
+    color: var(--ink); display: flex; align-items: center; gap: 8px;
+  }
+  .flow .from-to {
+    color: var(--ink-dim); font-size: 11px; margin-bottom: 8px;
+    font-family: "JetBrains Mono", monospace; letter-spacing: 1px;
+  }
+  .flow .row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; font-size: 12px; }
+  .flow .row .label { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.1px; }
+  .flow .friction { color: #fca5a5; font-size: 12px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--panel-edge); }
+
+  /* ============================================================
+     STANDARDS VIEW
+  ============================================================ */
+  .standard {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge);
+    border-left: 3px solid var(--pink);
+    border-radius: 14px; padding: 18px 22px; margin-bottom: 14px;
+  }
+  .standard h3 {
+    font-size: 14px; margin: 0 0 8px;
+    background: linear-gradient(120deg, #fff 0%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .standard .why {
+    color: var(--ink); font-size: 13px; line-height: 1.6; margin-bottom: 10px;
+  }
+  .standard .how {
+    color: var(--ink-dim); font-size: 12px;
+    border-top: 1px dashed var(--panel-edge); padding-top: 10px; margin-top: 10px;
+  }
+  .standard .how strong { color: var(--orange); }
+
+  .triage-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;
+    margin: 16px 0;
+  }
+  .triage-card {
+    border-radius: 14px; padding: 14px 16px;
+  }
+  .triage-card.now { background: rgba(255,43,214,0.1); border: 1px solid var(--magenta); }
+  .triage-card.soon { background: rgba(255,163,58,0.1); border: 1px solid var(--orange); }
+  .triage-card.async { background: rgba(176,38,255,0.1); border: 1px solid var(--violet); }
+  .triage-card.never { background: rgba(154,160,176,0.06); border: 1px solid #2a2f3c; }
+  .triage-card h5 {
+    margin: 0 0 8px; font-size: 12px; letter-spacing: 1.1px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .triage-card.now h5 { color: var(--magenta); }
+  .triage-card.soon h5 { color: var(--orange); }
+  .triage-card.async h5 { color: var(--violet); }
+  .triage-card.never h5 { color: var(--ink-faint); }
+  .triage-card ul { margin: 0; padding-left: 16px; font-size: 12px; }
+  .triage-card li { margin-bottom: 4px; }
+
+  /* ============================================================
+     BREAK-GLASS VIEW
+  ============================================================ */
+  .bg-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 14px;
+  }
+  .bg-card {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--panel-edge);
+    border-left: 3px solid var(--magenta);
+    border-radius: 14px; padding: 16px 18px;
+    box-shadow: 0 4px 20px -10px rgba(255,43,214,0.25);
+  }
+  .bg-card .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px; margin-bottom: 6px;
+  }
+  .bg-card h3 { margin: 0; font-size: 14px; }
+  .bg-card .severity {
+    font-size: 9px; padding: 3px 10px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 700;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .sev-high { background: rgba(255,43,214,0.2); color: var(--magenta); border: 1px solid var(--magenta); }
+  .sev-med  { background: rgba(255,163,58,0.15); color: var(--orange); border: 1px solid var(--orange); }
+  .sev-low  { background: rgba(74,222,128,0.12); color: #86efac; border: 1px solid rgba(74,222,128,0.3); }
+  .bg-card .calltree {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin: 10px 0 10px; font-size: 12px;
+  }
+  .bg-card .calltree .who {
+    background: var(--bg-2); padding: 5px 12px; border-radius: 100px;
+    color: var(--ink); border: 1px solid var(--panel-edge);
+  }
+  .bg-card .calltree .who strong { color: var(--pink); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+  .bg-card ol { margin: 0 0 6px; padding-left: 20px; color: var(--ink); }
+  .bg-card ol li { margin-bottom: 5px; font-size: 12px; line-height: 1.45; }
+  .bg-card .escalate {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed var(--panel-edge);
+    font-size: 11px; color: var(--ink-dim);
+  }
+  .bg-card .escalate strong { color: var(--orange); }
+
+  /* ============================================================
+     EDIT MODE — toggle, action buttons, form inputs
+  ============================================================ */
+  .header-actions {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .header-btn {
+    background: transparent; color: var(--ink-dim);
+    border: 2px solid var(--panel-edge);
+    padding: 6px 12px; border-radius: 100px;
+    font-size: 10px; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .header-btn:hover { color: var(--pink); border-color: rgba(255,62,200,0.5); }
+  .header-btn.primary {
+    color: #fff; border-color: var(--pink);
+    background: var(--grad-cta);
+    box-shadow: var(--glow-pink);
+  }
+  .header-btn.edit-on {
+    color: #fff; border-color: var(--orange);
+    background: linear-gradient(135deg, var(--orange), #ff6b00);
+    box-shadow: 0 6px 18px -6px rgba(255,163,58,0.6);
+  }
+  .edit-indicator {
+    display: none;
+    background: linear-gradient(135deg, var(--orange), #ff6b00);
+    color: #fff;
+    padding: 6px 12px; border-radius: 100px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    font-family: "JetBrains Mono", monospace;
+    box-shadow: 0 6px 18px -6px rgba(255,163,58,0.6);
+  }
+  body.edit-mode .edit-indicator { display: inline-block; }
+  .edited-badge {
+    display: none;
+    background: rgba(74,222,128,0.15);
+    color: #86efac;
+    border: 1px solid rgba(74,222,128,0.4);
+    padding: 6px 10px; border-radius: 100px;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  body.has-edits .edited-badge { display: inline-block; }
+
+  /* Export dropdown */
+  .export-menu {
+    position: relative; display: inline-block;
+  }
+  .export-dropdown {
+    display: none; position: absolute; right: 0; top: calc(100% + 6px);
+    background: var(--panel); border: 1px solid var(--panel-edge);
+    border-radius: 12px; padding: 6px; min-width: 180px; z-index: 100;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.6);
+  }
+  .export-dropdown.open { display: block; }
+  .export-dropdown button {
+    display: block; width: 100%; text-align: left;
+    background: transparent; border: 0;
+    color: var(--ink); padding: 8px 12px; border-radius: 8px;
+    font-size: 11px; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px;
+  }
+  .export-dropdown button:hover { background: rgba(255,62,200,0.12); color: var(--pink); }
+
+  /* Edit affordances on cards */
+  .edit-actions {
+    display: none;
+    position: absolute; top: 8px; right: 8px;
+    gap: 4px; z-index: 2;
+  }
+  body.edit-mode .edit-actions { display: flex; }
+  body.edit-mode .person { padding-top: 36px; }
+  .edit-actions button {
+    background: rgba(13,15,21,0.9);
+    border: 1px solid var(--panel-edge);
+    color: var(--ink-dim);
+    width: 26px; height: 26px; border-radius: 50%;
+    cursor: pointer; font-size: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+  }
+  .edit-actions button:hover { color: var(--pink); border-color: var(--pink); }
+  .edit-actions button.del:hover { color: #fca5a5; border-color: #fca5a5; }
+
+  .add-btn {
+    display: none;
+    background: transparent;
+    color: var(--orange);
+    border: 2px dashed rgba(255,163,58,0.5);
+    padding: 10px 18px; border-radius: 100px;
+    font-size: 11px; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 600;
+    margin-bottom: 14px;
+    transition: all 0.2s;
+  }
+  .add-btn:hover { background: rgba(255,163,58,0.1); border-color: var(--orange); color: var(--orange); }
+  body.edit-mode .add-btn { display: inline-block; }
+
+  /* Form inputs in drawer */
+  .form-field { margin-bottom: 14px; }
+  .form-field label {
+    display: block;
+    color: var(--pink); font-size: 9px;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.3px;
+    margin-bottom: 6px; font-weight: 500;
+  }
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    width: 100%;
+    background: var(--bg-2); color: var(--ink);
+    border: 2px solid var(--panel-edge);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px; line-height: 1.5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-field textarea { min-height: 70px; resize: vertical; font-family: "Space Grotesk", sans-serif; }
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    outline: none; border-color: var(--pink); box-shadow: var(--glow-pink);
+  }
+  .form-field .hint {
+    color: var(--ink-faint); font-size: 10px; margin-top: 4px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .form-actions {
+    display: flex; gap: 10px; margin-top: 20px;
+    padding-top: 16px; border-top: 1px dashed var(--panel-edge);
+  }
+  .form-actions button {
+    flex: 1;
+    padding: 12px 18px; border-radius: 100px;
+    font-size: 11px; cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase; letter-spacing: 1.1px; font-weight: 700;
+    transition: all 0.2s;
+    border: 2px solid var(--panel-edge);
+    background: transparent; color: var(--ink-dim);
+  }
+  .form-actions button.save {
+    color: #fff; border-color: var(--pink);
+    background: var(--grad-cta);
+    box-shadow: var(--glow-pink);
+  }
+  .form-actions button.cancel:hover {
+    color: #fca5a5; border-color: #fca5a5;
+  }
+
+  /* Style other card types similarly for edit mode positioning */
+  .standard, .flow, .bg-card { position: relative; }
+  body.edit-mode .standard,
+  body.edit-mode .flow,
+  body.edit-mode .bg-card { padding-top: 40px; }
+
+  /* ============================================================
+     RESPONSIVE LAYOUT
+  ============================================================ */
+  /* Tablet (641 - 1024px) */
+  @media (max-width: 1024px) {
+    .people-grid { grid-template-columns: repeat(2, 1fr); }
+    .bg-grid { grid-template-columns: repeat(2, 1fr); }
+    .tree-grid { grid-template-columns: 1fr; }
+    main { padding: 24px 22px 80px; }
+    header.top { padding: 24px 22px 16px; }
+    nav.tabs { padding: 12px 22px; }
+  }
+
+  /* Mobile (≤ 640px) */
+  @media (max-width: 640px) {
+    body { font-size: 13px; }
+
+    header.top {
+      padding: 20px 14px 14px;
+      flex-direction: column; align-items: flex-start; gap: 12px;
+    }
+    header.top h1 { font-size: 22px; }
+    header.top .sub { font-size: 10px; line-height: 1.5; }
+    .version-pill { font-size: 9px; padding: 6px 10px; }
+    .header-actions { width: 100%; }
+
+    nav.tabs {
+      padding: 10px 12px;
+      gap: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    nav.tabs button {
+      padding: 10px 14px; font-size: 10px;
+      min-height: 40px;
+    }
+
+    main { padding: 16px 12px 80px; }
+
+    .info-banner, .placeholder { font-size: 12px; padding: 10px 12px; }
+
+    /* People */
+    .people-controls { gap: 8px; }
+    .search { min-width: 0; flex: 1 1 100%; max-width: none; padding: 10px 14px; }
+    .filter-pill { min-height: 40px; padding: 8px 12px; font-size: 10px; }
+    .people-grid { grid-template-columns: 1fr; gap: 10px; }
+    .person { padding: 14px; }
+    .entity-section h2 { font-size: 18px; }
+
+    /* Tree */
+    .tree-grid { grid-template-columns: 1fr; gap: 14px; }
+    .tree-entity { padding: 16px; }
+
+    /* Cadences — horizontal scroll for week */
+    .week-grid {
+      display: flex; overflow-x: auto; gap: 8px;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .day-col { min-width: 200px; flex: 0 0 auto; }
+    .rhythm-rules { grid-template-columns: 1fr; }
+
+    /* Flows */
+    .flow { padding: 14px; }
+    .flow .row { gap: 8px; flex-direction: column; }
+
+    /* Standards */
+    .standard { padding: 14px 16px; }
+    .triage-grid { grid-template-columns: 1fr; }
+
+    /* Break-glass */
+    .bg-grid { grid-template-columns: 1fr; gap: 10px; }
+    .bg-card { padding: 14px; }
+    .bg-card .head { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    /* Drawer full-width */
+    .drawer {
+      width: 100%;
+      padding: 20px 18px;
+    }
+    .drawer h2 { font-size: 22px; }
+
+    /* Edit-mode tweaks */
+    body.edit-mode .person { padding-top: 40px; }
+    .add-btn { width: 100%; text-align: center; }
+  }
+
+  @media print {
+    nav.tabs, .people-controls, .drawer, .drawer-mask, .header-actions, .add-btn, .edit-actions { display: none !important; }
+    section.view { display: block !important; page-break-after: always; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div>
+    <h1>Operating Atlas</h1>
+    <div class="sub">Joshua Parrish · WNF Market · WNF Café · INVERT · Tao Capital — a starting reference for everyone on the team</div>
+  </div>
+  <div class="header-actions">
+    <span class="edit-indicator">EDIT MODE</span>
+    <span class="edited-badge" title="Local edits are saved in this browser">EDITED</span>
+    <div class="version-pill">v2 · May 2026</div>
+    <button id="edit-toggle" class="header-btn" title="Toggle edit mode">&#9998; Edit</button>
+    <div class="export-menu">
+      <button id="export-btn" class="header-btn" title="Export / import">&#8682; Export</button>
+      <div id="export-dropdown" class="export-dropdown">
+        <button data-action="export-html">Download HTML</button>
+        <button data-action="export-json">Download JSON</button>
+        <button data-action="import-json">Import JSON</button>
+        <button data-action="reset">Reset to file defaults</button>
+      </div>
+    </div>
+    <input type="file" id="import-file" accept="application/json,.json" style="display:none">
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-view="people">People</button>
+  <button class="tab-btn" data-view="tree">Tree</button>
+  <button class="tab-btn" data-view="cadences">Cadences</button>
+  <button class="tab-btn" data-view="flows">Flows</button>
+  <button class="tab-btn" data-view="standards">Day One Standards</button>
+  <button class="tab-btn" data-view="break-glass">Break-Glass</button>
+</nav>
+
+<main>
+  <section id="people" class="view active"></section>
+  <section id="tree" class="view"></section>
+  <section id="cadences" class="view"></section>
+  <section id="flows" class="view"></section>
+  <section id="standards" class="view"></section>
+  <section id="break-glass" class="view"></section>
+</main>
+
+<div class="drawer-mask" id="mask"></div>
+<aside class="drawer" id="drawer">
+  <button class="close" id="drawer-close">×</button>
+  <div id="drawer-body"></div>
+</aside>
+
+<script>
+// Capture the original script source text BEFORE any mutation, so Export HTML
+// can splice current state back into a clean copy of the file. document.currentScript
+// references this <script> element; .textContent is the inline source verbatim.
+const __ORIGINAL_SCRIPT_TEXT = (document.currentScript && document.currentScript.textContent) || "";
+
+// ============================================================
+// ENTITIES
+// ============================================================
+let ENTITIES = {
+  market: {
+    name: '<span class="wnf-mark">WNF</span> Market',
+    tag: "Natural foods retail · 222 N Wenatchee Ave · ~1,000 customers/day",
+    desc: "Our retail home. Customer relationships are at the center of what we do. Every role here supports that work."
+  },
+  cafe: {
+    name: '<span class="wnf-mark">WNF</span> Café',
+    tag: "Food service · co-located with the Market · separate entity",
+    desc: "Co-located with the Market. Hospitality-led, with the Café team building strong systems and standards alongside an external restaurant consulting partner."
+  },
+  invert: {
+    name: '<span class="invert-mark">INVERT</span> Inc',
+    tag: "Real Estate · 6 properties · ~17 tenants · Wenatchee + East Wenatchee",
+    desc: "Property holdings and management. Run with care for tenants — proactive maintenance, respect for tenant privacy, and steady defense of the asset base."
+  },
+  tao: {
+    name: "Tao Capital",
+    tag: "Investment portfolio · Joshua-led",
+    desc: "Joshua's investment vehicle. Solo allocation work — relevant for context, not for day-to-day operations."
+  }
+};
+
+// ============================================================
+// PEOPLE — every named human + key external + hiring seats
+// ============================================================
+let PEOPLE = [
+  // ============================================================
+  // WNF MARKET — Joshua + the spine
+  // ============================================================
+  {
+    id: "joshua", name: "Joshua Parrish", nick: "JP, Parrish, Hey Dude", entity: "market",
+    role: "CEO · Change Agent · Soul Protector",
+    tier: "owner",
+    badges: ["all-entities"],
+    summary: "CEO across all four entities, with the Market as the daily home. The change agent — sets direction, makes the violent moves the system can't make on its own. The soul protector — guards the customer-first culture, the standard on the floor, and the long-game thesis from drift. Final escalation point on every big decision.",
+    reports_to: "—",
+    direct_reports: ["sam","tyler","rachel","floor_lead_bench","angela","ops_assistant"],
+    decision_authority: "Hires, fires, major spend, brand direction, vendor terms, capital projects, lease decisions, investment allocation. Sole authority on cultural direction and the standard.",
+    systems: "OrderDog · Toast · QBO · WhenIWork · Banking · Brokerage",
+    archetype: "Both Knowledge and Passion",
+    cross_entity: "Sits across all four entities. Mon–Thu focus on WNF Market and Café; Fri–Sun on portfolio; INVERT slots in by season.",
+    watch_outs: "Working hours: 5am–12pm = office / strategic block (best for written briefs and decisions). 1pm–5pm = WNF floor presence ('in the pit') — bring floor-level questions here, save strategy for the morning. 5pm–9pm = wrap-up window (good for follow-ups and end-of-day asks)."
+  },
+
+  {
+    id: "sam", name: "Sam Switzer", entity: "market",
+    role: "Floor Manager · Culture Queen · Change Agent · Soul Protector · Comms Lead · cross-entity Café kitchen consult",
+    tier: "tier-1",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-1","knowledge","cross-entity","dev"],
+    summary: "Floor manager, Culture Queen, and named change agent — paired with Joshua on the cultural and operational direction WNF is moving toward. Owns crew communication: the fireside chats, the hard conversations, the standard-setting talks. Soul protector on the floor: guards the customer-first heuristic and the team's spine against drift. When Joshua isn't in the building, Sam speaks for Joshua on culture, standard, and crew direction — her word IS Joshua's word in critical moments, edge cases, and unknowns.",
+    reports_to: "joshua",
+    direct_reports: ["lucina","floor_staff_market"],
+    decision_authority: "Culture, comms, and standard-enforcement. Direction-setting on new initiatives, hiring filter, hard conversations with crew. New vendor relationships. Produce direction with Wendy. In critical moments / edge cases / unknowns when Joshua is unreachable, Sam speaks for Joshua — her call stands.",
+    systems: "OrderDog · WhenIWork · Toast (limited) · Café kitchen tools (consult days)",
+    archetype: "Knowledge",
+    cross_entity: "WNF Café — kitchen consulting on menu rollouts and equipment training",
+    watch_outs: "Thu–Sun shifts. Sam is the Culture Queen and the change agent — when she sets a direction, delivers a fireside, or makes a call on a crew issue, that IS Joshua's call. Not a suggestion to negotiate. Coordinate Market floor coverage when she's consulting at the Café. Time-limited shift footprint — pair her with Tyler and the floor lead bench for coverage."
+  },
+  {
+    id: "tyler", name: "Tyler Tuttle", nick: "T", entity: "market",
+    role: "Floor Manager + BoH/Freight Lead · Change Agent · Soul Protector · Joshua's Deputy",
+    tier: "tier-1",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-1","knowledge"],
+    summary: "Floor Manager + BoH/Freight Lead. Joshua's named deputy and a change agent on the floor — paired with Joshua and Sam on the cultural and operational rebuild. Soul protector: holds the line on the standard, calls bullshit directly, defends the customer-first culture every shift. Owns BoH + receiving + freight + bulk logistics. In critical moments, edge cases, and unknowns when Joshua isn't reachable, Tyler speaks for Joshua — his call IS Joshua's call.",
+    reports_to: "joshua",
+    direct_reports: ["bobby","floor_staff_market"],
+    decision_authority: "BoH operations + receiving accept/reject + freight + bulk logistics. Full Joshua-proxy authority on FoH issues when Joshua is unreachable. Hiring/firing input weighted heavily on BoH and FoH leadership decisions.",
+    systems: "OrderDog (receiving) · vendor portals",
+    archetype: "Knowledge",
+    cross_entity: "—",
+    watch_outs: "Tyler Tuttle (WNF Floor Manager + BoH Lead) ≠ Tyler Burns (INVERT GC backup). Same first name, different people. Always disambiguate. When Joshua is off the floor, Tyler IS Joshua — trust his call. Scope-limited on FoH hours — backed up by Sam (Thu–Sun) and the floor lead bench."
+  },
+  {
+    id: "rachel", name: "Rachel Peppin", entity: "market",
+    role: "Floor Manager · Logistics · Scheduling · Operations Maintenance",
+    tier: "tier-1",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-1","knowledge"],
+    summary: "Floor manager and operations maintenance anchor. Keeps the existing system running smoothly — scheduling logistics, grocery / supplement / body-care / meat-dairy re-ordering volume, and shelf-state continuity. Deep product knowledge across the store. The maintainer of what's built.",
+    reports_to: "joshua",
+    direct_reports: ["lucina","floor_staff_market"],
+    decision_authority: "Scheduling logistics, daily floor staffing rhythm, and re-ordering within established vendor relationships. Maintenance of existing operating rhythm.",
+    systems: "OrderDog · WhenIWork · Toast (limited)",
+    archetype: "Knowledge",
+    cross_entity: "—",
+    watch_outs: "Mon–Thu shifts. First stop for scheduling logistics and grocery-side re-ordering questions."
+  },
+  {
+    id: "floor_lead_bench", name: "Floor Lead Bench (3 seats)", entity: "market",
+    role: "Expanded floor lead bench · direct report to Joshua · in promotion",
+    tier: "hiring",
+    badges: ["hiring","dev"],
+    summary: "Three new floor lead seats being promoted from within to expand FoH leadership coverage across the full week. Direct report to Joshua. Built to broaden the customer-service hero bench beyond the current four (Tyler · Sam · Rachel · Lucina) so the standard holds shift by shift, every shift. Named individuals confirmed as promotion decisions are finalized.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Shift-level decisions, standard-enforcement on the floor, customer-service escalation handoff to Sam / Tyler / Joshua. Defined in detail at the time of promotion.",
+    systems: "OrderDog · WhenIWork",
+    archetype: "Both Knowledge and Passion — bench-builders for the future state",
+    cross_entity: "—",
+    watch_outs: "This is a bench-expansion move, not a backfill. The intent is to multiply the customer-service hero pool that has historically been concentrated in four people. Floor leads operate alongside existing managers — coverage is additive."
+  },
+  {
+    id: "lucina", name: "Lucina", entity: "market",
+    role: "Floor Lead · customer-service standard-bearer",
+    tier: "tier-2",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-2","passion"],
+    summary: "Floor lead. Customer-service-focused, deeply attentive to customers with complex concerns. Models WNF's customer-first standard on the floor — the heuristic that holds without supervision.",
+    reports_to: "rachel + sam",
+    direct_reports: [],
+    decision_authority: "Shift-level decisions, minor service comps.",
+    systems: "OrderDog (cashier + light manager)",
+    archetype: "Passion",
+    cross_entity: "—",
+    watch_outs: "Strong example for new hires — watch how she handles customer interactions to understand WNF's service standard."
+  },
+  {
+    id: "vanilla_will", name: "Will", nick: "Vanilla", entity: "market",
+    role: "Floor / FoH tech guru in active development · Tier 3 → Tier 2 fast-track",
+    tier: "tier-3",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-3","dev"],
+    summary: "Market floor team. Growing into the front-of-house technology and systems role — knows how the floor interacts with POS, hardware, and customer-facing tools.",
+    reports_to: "rachel + sam",
+    direct_reports: [],
+    decision_authority: "Within floor systems scope.",
+    systems: "OrderDog",
+    archetype: "Knowledge",
+    cross_entity: "—",
+    watch_outs: "Two Wills in the org — refer to him as 'Vanilla Will' or 'Market Will' to avoid mixing him up with Café Will."
+  },
+  {
+    id: "rocio", name: "Rocio", entity: "market",
+    role: "Tier 2 anchor · weekly grocery ordering volume · process-correct",
+    tier: "tier-2",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-2","knowledge"],
+    summary: "Long-tenured team member. Anchors weekly grocery ordering volume and keeps shelves stocked and tight.",
+    reports_to: "rachel",
+    direct_reports: [],
+    decision_authority: "Within established grocery ordering scope.",
+    systems: "OrderDog",
+    archetype: "Knowledge",
+    cross_entity: "—",
+    watch_outs: "Reliable point of contact for grocery-side questions and shelf-state concerns."
+  },
+  {
+    id: "wendy", name: "Wendy", entity: "market",
+    role: "Anchors produce ordering with Sam · group-effort produce",
+    tier: "specialist",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["knowledge"],
+    summary: "Anchors produce ordering alongside Sam as a group-effort domain.",
+    reports_to: "rachel",
+    direct_reports: [],
+    decision_authority: "Within produce ordering scope.",
+    systems: "OrderDog",
+    archetype: "Knowledge",
+    cross_entity: "—",
+    watch_outs: "Produce is anchored by Wendy + Sam but is a team effort — floor coverage on produce restocking is shared."
+  },
+  {
+    id: "bobby", name: "Bobby", nick: "The Bull", entity: "market",
+    role: "Frozen freight receiving + stocking · BoH",
+    tier: "specialist",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: [],
+    summary: "Anchors frozen freight receiving and stocking. Knows the freezer rotation and vendors.",
+    reports_to: "tyler",
+    direct_reports: [],
+    decision_authority: "Frozen receiving accept/reject, freezer organization.",
+    systems: "OrderDog (receiving)",
+    archetype: "—",
+    cross_entity: "—",
+    watch_outs: "First stop for frozen receiving questions on delivery days."
+  },
+  {
+    id: "lee", name: "General Lee Mendez", entity: "all",
+    role: "PRIMARY Handyman + General Contractor · WNF + Café + INVERT",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "PRIMARY handyman and general contractor across all properties. First call for handyman work AND GC scope. Tyler Burns now sits as backup / structural specialist behind Lee Mendez.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Within agreed contractor scope across handyman + GC work.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "WNF + Café + INVERT",
+    watch_outs: "Lee replaced the old trial setup — he is now THE primary for handyman + GC. Rigoberto remains the Roofer (separate trade) and a handyman backup if Lee is overloaded. Tyler Burns is GC backup / structural-only."
+  },
+  {
+    id: "ops_assistant", name: "Ops Assistant", entity: "all",
+    role: "Cross-entity operations support · direct report to Joshua",
+    tier: "hiring",
+    badges: ["hiring","all-entities"],
+    summary: "Cross-entity operations support reporting directly to Joshua. Coordinates communication, schedules, and operations across WNF Market, WNF Café, and INVERT.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Defined during onboarding.",
+    systems: "OrderDog · Toast · QBO · WhenIWork · Notion · Gmail · Calendar",
+    archetype: "Both — Knowledge for ops fluency, Passion for relationship work",
+    cross_entity: "All four entities and Joshua's calendar/comms",
+    watch_outs: "First 30 days focus on shadowing the morning office block, observing operations across both Market and Café, and learning the comms triage protocol."
+  },
+
+  // ============================================================
+  // WNF CAFÉ
+  // ============================================================
+  {
+    id: "angela", name: "Angela", entity: "cafe",
+    role: "Café Manager · hospitality anchor · loyal executor",
+    tier: "tier-1",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-1","passion"],
+    summary: "Café manager. Anchors hospitality and guest experience — holds a high standard for how customers are taken care of. Partners with Joshua on Café operations and direction.",
+    reports_to: "joshua",
+    direct_reports: ["will","noah","dylan","cafe_crew"],
+    decision_authority: "Café operations and team management.",
+    systems: "Toast · WhenIWork · vendor portals",
+    archetype: "Passion (hospitality)",
+    cross_entity: "—",
+    watch_outs: "First stop for Café operations and guest-experience questions."
+  },
+  {
+    id: "will", name: "Will", entity: "cafe",
+    role: "Café co-manager · ordering + supplies",
+    tier: "tier-2",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: [],
+    summary: "Café co-manager. Anchors ordering, supplies, and back-of-house logistics. Partners with Angela on Café operations.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Ordering and supplies within budget.",
+    systems: "Toast · vendor portals",
+    archetype: "—",
+    cross_entity: "—",
+    watch_outs: "Two Wills in the org — refer to him as 'Café Will' to avoid confusion with Vanilla Will at the Market."
+  },
+  {
+    id: "noah", name: "Noah", entity: "cafe",
+    role: "Café Lead · CS strength · Toast POS pro",
+    tier: "tier-2",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-2","passion"],
+    summary: "Café lead. Strong customer service. Anchors the Toast POS — handles data, cleanup, and the bridge between customer-facing transactions and back-of-house operations.",
+    reports_to: "angela",
+    direct_reports: ["cafe_crew"],
+    decision_authority: "Shift-level operations and POS data integrity.",
+    systems: "Toast (admin-level) · WhenIWork",
+    archetype: "Passion",
+    cross_entity: "—",
+    watch_outs: "Go-to for Toast POS questions and Café-side data."
+  },
+  {
+    id: "dylan", name: "Dylan", entity: "cafe",
+    role: "Café Lead · guest hospitality strength",
+    tier: "tier-2",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["tier-2","passion"],
+    summary: "Café lead. Anchors guest hospitality and service experience.",
+    reports_to: "angela",
+    direct_reports: ["cafe_crew"],
+    decision_authority: "Shift-level operations and service standards.",
+    systems: "Toast · WhenIWork",
+    archetype: "Passion",
+    cross_entity: "—",
+    watch_outs: "Go-to for guest-experience questions on Café shifts."
+  },
+  {
+    id: "cafe_consulting", name: "External Restaurant Consulting", entity: "cafe",
+    role: "Temporary kitchen-fundamentals install · audit machinery · standardized menu",
+    tier: "external",
+    badges: ["external"],
+    summary: "External partner supporting the Café team on kitchen systems — KPIs, food production protocols, standardized menu rollout, prep scaling, and POS data integration.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Advisory and implementation within scope.",
+    systems: "Toast (data) · audit toolset",
+    archetype: "—",
+    cross_entity: "—",
+    watch_outs: "Active engagement supporting the Café team on systems and standards."
+  },
+
+  // ============================================================
+  // INVERT INC
+  // ============================================================
+  {
+    id: "melchor_hvac", name: "Melchor HVAC & Refrigeration", entity: "invert",
+    role: "All HVAC + walk-in cooler/freezer + produce case service · INVERT + WNF crossover",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "PRIMARY VENDOR for anything heating, cooling, refrigeration. WNF walk-in coolers, freezers, produce cases. INVERT property HVAC across the board. First call when temperature stops behaving.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Service within agreed scope. Emergency response.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "WNF + INVERT",
+    watch_outs: "If a walk-in or freezer is failing — Melchor is your first call before product loss starts. Reference this in break-glass."
+  },
+  {
+    id: "tyler_burns", name: "Tyler Burns", entity: "invert",
+    role: "General Contractor · INVERT properties",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Established GC for INVERT property work. NOT to be confused with Tyler (WNF Market Floor Manager) — same first name, different person. Always disambiguate in any comm.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Within agreed scope of work.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "—",
+    watch_outs: "Name collision with WNF's Tyler — explicitly write 'Tyler Burns (GC)' or 'Tyler (WNF Floor Manager)' in any text/comm to avoid ambiguity. Lee Mendez is now the primary GC for INVERT — Tyler Burns is backup / structural specialist."
+  },
+  {
+    id: "trades_pool", name: "Trade Vendor Pool · Plumbing · Windows · Pest · Tile · Landscape · Cleaning", entity: "invert",
+    role: "Recurring trade vendors · INVERT + WNF crossover (HVAC handled separately by Melchor)",
+    tier: "external",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "Trade pool that crosses INVERT and WNF. Confirmed go-to vendors per Joshua. HVAC + refrigeration is its own card — call Melchor for those.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Service within agreed scope.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "WNF + INVERT",
+    watch_outs: "Same vendor often hit on both sides — coordinate scope so they're not double-billing or running parallel scopes."
+  },
+
+  {
+    id: "rimbey_oven", name: "Chris @ Rimbey Solutions — Commercial Oven Repair", entity: "cafe",
+    role: "WNF Café critical kitchen equipment repair · ovens, Blodgett, commercial cooking equipment",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Chris is the go-to for commercial oven failures and cooking-equipment-down events at the Café. Confirmed in his own words on 2025-10-09: cell [contact via manager] is the best number. Office line has historically had a full voicemail box — DO NOT route critical Café equipment failures there as a first call.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor service for commercial cooking equipment.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "Café only",
+    watch_outs: "Oven down = Café service down. Text the cell first if it's an emergency, then call. Chris has been overwhelmed in the past (lost crew to wildland fire 2025) — be specific about urgency in the first message so he can triage."
+  },
+  {
+    id: "toast_pos", name: "Toast — Café POS + Payments", entity: "cafe",
+    role: "WNF Café POS, KDS, kiosk, payment processing · 24/7 support",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Toast is the Café's POS, KDS, kiosk, and credit card processor in one stack — distinct from Market (Market = OrderDog POS + Celero CC). Customer Care line is 24/7. Chat is faster than phone for non-urgent. Status page first when something goes weird — could be a Toast-side outage, not a Café-side issue.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor support for the entire Café POS / payment stack.",
+    systems: "Toast POS · Toast KDS · Toast Web · Toast payments",
+    archetype: "—",
+    cross_entity: "Café only (Market = OrderDog + Celero)",
+    watch_outs: "Triage before you call: 1. Power-cycle the affected device. 2. If internet's down, that's a LocalTel issue first — call [contact via manager]. 3. Check status.toasttab.com — could be Toast-side. 4. Note serial / order # / merchant info before calling. POS down during service = revenue + customer experience hit; treat as board-stakes if not resolved in 30 min."
+  },
+  {
+    id: "restoration_1", name: "Restoration 1 (Central WA) — Mold / Flood / Fire", entity: "all",
+    role: "PRIMARY emergency restoration · water/mold/fire · 24/7 · WNF + Café + INVERT",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "Restoration 1 is the PRIMARY 24/7 restoration vendor across all entities — post-flood dry-out, water extraction, mold remediation, fire/smoke cleanup. Mold sets in within 24-48 hours of standing water — this is a fast-clock vendor.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Emergency restoration scope.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "WNF Market + Café + INVERT",
+    watch_outs: "Mold = health code risk for the Café and habitability risk for INVERT tenants. Move FAST. Authorization-to-act clause means any manager can call Restoration 1 directly without waiting for Joshua. Photo everything for insurance before remediation starts."
+  },
+  {
+    id: "france_co", name: "France & Company — Mold / Flood / Fire (BACKUP)", entity: "all",
+    role: "Backup emergency restoration · water/mold/fire/biohazard · 24/7 · WNF + Café + INVERT",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "France & Company is the BACKUP restoration vendor when Restoration 1 is unavailable. Family-owned, in business since 1952. Full suite: water, mold, fire, smoke, biohazard, asbestos abatement.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Emergency restoration scope.",
+    systems: "—",
+    archetype: "—",
+    cross_entity: "WNF Market + Café + INVERT",
+    watch_outs: "Backup only — call Restoration 1 first. France & Co is the right call for biohazard or asbestos jobs that Restoration 1 may not handle directly."
+  },
+  {
+    id: "wcp_solutions", name: "WCP Solutions — Paper / Packaging / Janitorial", entity: "all",
+    role: "Primary paper goods, packaging, janitorial supplies · WNF Market + Café",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","cross-entity"],
+    summary: "WCP Solutions is the primary supplier for paper goods, packaging, janitorial supplies, and equipment across both Market and Café — cups, lids, takeout seals, produce bag dispensers, toilet paper dispensers. Mark Fields is the named account manager and the warm contact. Café-side has historically routed paper questions through Will and Tyler in coordination with Mark.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor-side ordering and account management.",
+    systems: "WCP ordering portal",
+    archetype: "—",
+    cross_entity: "Market + Café",
+    watch_outs: "Mark routes special-order requests through his buyer team — expect a 24-48h turn for non-stock items. Some items are pallet-only (36 cases) for special orders. Lead with item specifics (size, color, qty) to save back-and-forth."
+  },
+  {
+    id: "charlies_produce", name: "Charlie's Produce — Produce Distributor", entity: "market",
+    role: "Primary produce distributor · WNF Market + Café",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Charlie's Produce is the primary produce distributor for both Market and Café. Aaron Huston is the direct rep — call his cell first for order guide questions, organic specs, kit availability, delivery issues. Fall back to Spokane DC switchboard outside Aaron's hours.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor-side ordering and account management.",
+    systems: "CutAndDry online ordering · Charlie's Fresh catalog",
+    archetype: "—",
+    cross_entity: "Market + Café",
+    watch_outs: "WNF was on Organic order guide originally — Aaron set up CP Fresh + Nature's World guide in March 2026. If a manager is hitting a wall on the website filters, call Aaron not the DC."
+  },
+  {
+    id: "unfi_distributor", name: "UNFI — Natural Foods Distributor (Backup)", entity: "market",
+    role: "BACKUP natural/organic packaged distributor · WNF Market (KEHE is primary)",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "UNFI is the BACKUP packaged-goods distributor for the Market — KEHE is primary. Tony's Fine Foods (TFF) is a UNFI subsidiary; both ship to WNF on the same truck out of Ridgefield WA. WNF has separate account numbers for each: UNFI 080460 (DC 6) and TFF 93440400 (DC 7). Nancy Sanchez covers both — hot sheets, holiday order deadlines, void-placement deals (50-100% off rotating SKUs). Email is her preferred channel.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor-side ordering and account management.",
+    systems: "myUNFI portal",
+    archetype: "—",
+    cross_entity: "Market primarily",
+    watch_outs: "Use the RIGHT account number per call: UNFI = 080460 (DC 6 Ridgefield WBS), TFF = 93440400 (DC 7 Ridgefield TFF). Both come on the same truck. Nancy's email lands as [contact via manager] because she covers both. KEHE is now the primary packaged-goods distributor — UNFI/TFF is the backup channel."
+  },
+  {
+    id: "kehe_distributor", name: "KEHE — PRIMARY Natural Foods Distributor", entity: "market",
+    role: "PRIMARY distributor · WNF Market (KEHE DC 25 Portland) · UNFI is backup",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "KEHE is the PRIMARY packaged-goods distributor for WNF Market (UNFI is backup). KEHE DC 25 Portland is the assigned distribution center. Brian Wilhelms is the named rep — ALL credits and delivery issues route through him before any escalation.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor-side ordering, credits, delivery resolution.",
+    systems: "KEHE Connect ordering",
+    archetype: "—",
+    cross_entity: "Market primarily",
+    watch_outs: "Brian Wilhelms is the credit/delivery escalation path — DO NOT route through general KEHE customer service first. Lead any escalated call with WNF account number 401403."
+  },
+  {
+    id: "orderdog_pos", name: "OrderDog — Market POS", entity: "market",
+    role: "WNF Market POS / inventory / ordering platform",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "OrderDog runs the entire Market POS, inventory, and purchase ordering. Texas-based vendor — 2 hours ahead of Wenatchee (PT). Their day winds down 2 hours before ours, so a 3pm WA call lands at 5pm TX = end-of-day for their day staff.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor support for the Market POS / inventory stack.",
+    systems: "OrderDog POS · OrderDog inventory + ordering",
+    archetype: "—",
+    cross_entity: "Market only (Café = Toast)",
+    watch_outs: "TIMEZONE: TX-based, 2 hrs ahead of PST — late-afternoon WA = closing time TX. For any critical outage during customer hours, USE AFTER-HOURS EMERGENCY SUPPORT — do not let them defer to next-day. Lead with merchant info and reproduce the issue while on the phone. Pair with Celero (CC processor) and LocalTel (internet) when triaging — POS-down can be any of those three layers."
+  },
+  {
+    id: "celero_cc", name: "Celero — Credit Card Processor", entity: "market",
+    role: "WNF Market credit card processor · POS pinpad / terminal support",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Credit card processor for WNF Market POS. First call when a pinpad goes down or terminals stop authorizing cards. Café side uses Toast for CC processing — Celero is Market-only.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor support for CC processing.",
+    systems: "OrderDog POS · Celero pinpads",
+    archetype: "—",
+    cross_entity: "WNF Market only (Café = Toast)",
+    watch_outs: "Lead the call with merchant number 498412649887 — skips authentication. CC pinpad down = revenue leak in real time. Tier this as a board-stakes outage if it can't be resolved within 30 min."
+  },
+  {
+    id: "valutec_giftcards", name: "ValuTec / Worldpay (FIS) — Gift Cards", entity: "market",
+    role: "WNF Market gift card processor · cards, terminals, merchant support",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external"],
+    summary: "Gift card processor for WNF Market. Worldpay/Valutec is an FIS company. Connor Bruce is the named inside rep on file (engaged April 2026 around stand-alone gift terminal upgrade — PAX A920 Pro / Ingenico DX8000 / Sunmi P3H were the options under review).",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Vendor support for gift card platform.",
+    systems: "ValuTec.net · Worldpay terminals",
+    archetype: "—",
+    cross_entity: "WNF Market only (Café uses Toast, INVERT N/A)",
+    watch_outs: "When card support call lands, lead with merchant number 370670000338420 — saves 5 minutes of front-line authentication. Connor's the warm contact if general support is being unhelpful."
+  },
+
+  // ============================================================
+  // ACROSS / EXTERNAL
+  // ============================================================
+  {
+    id: "external_cpa", name: "Mike Penning @ Evergreen Accounting — Bookkeeping / Payroll / AP", entity: "all",
+    role: "Bookkeeping, billing, invoices, payables, payroll · WNF + Café + INVERT + Tao",
+    tier: "external",
+    phone: "",
+    contact_label: "Ask a manager for contact info",
+    badges: ["external","all-entities"],
+    summary: "Mike Penning at Evergreen Accounting handles all bookkeeping, billing, invoicing, payables, and payroll across all entities. Primary day-to-day finance contact. Mindy Dixon at the same firm runs sales tax filings + payroll mechanics. Zach Kershner is the firm's CPA owner.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "Within engagement scope — full bookkeeping/payroll authority on agreed cadence.",
+    systems: "QuickBooks Online · payroll system · DOR / WA business license filings",
+    archetype: "—",
+    cross_entity: "All entities — WNF Market + Café + INVERT + Tao Capital",
+    watch_outs: "Mike's cell [contact via manager] is the warm line for anything urgent. For payroll-specific questions, loop Mindy Dixon ([contact via manager]) — she filed Aug sales tax returns and handles DOR letter mechanics. NOTE: Tax/CPA work has historically been touched by Greg Brault @ Brault & Associates ([contact via manager], [contact via manager]) — separate engagement from Evergreen's bookkeeping scope. Don't conflate the two."
+  },
+  {
+    id: "ai_copilot", name: "AI Customer-Conversation Co-pilot", entity: "market",
+    role: "Speculative seat · 12-month AI ambition · staff augmentation tool",
+    tier: "ai-future",
+    badges: ["ai-future"],
+    summary: "Future-state tool in development: a customer-conversation co-pilot that supports floor staff with product knowledge, health-and-sourcing context, and the latest exciting finds across the store.",
+    reports_to: "joshua",
+    direct_reports: [],
+    decision_authority: "—",
+    systems: "—",
+    archetype: "Supports both Knowledge and Passion archetypes",
+    cross_entity: "—",
+    watch_outs: "On the roadmap — not yet available. The team will hear more as it gets built."
+  },
+
+  // floor staff aggregate placeholders for tree structure
+  {
+    id: "floor_staff_market", name: "Floor / Counter Team", entity: "market",
+    role: "Market floor and counter team",
+    tier: "tier-3",
+    badges: ["tier-3"],
+    summary: "The Market floor and counter team — the people who greet customers at the door, work the registers, restock shelves, and carry WNF's customer service standard every shift.",
+    reports_to: "rachel + sam + lucina",
+    direct_reports: [],
+    decision_authority: "Within shift scope.",
+    systems: "OrderDog (cashier)",
+    archetype: "Both Knowledge and Passion are valued",
+    cross_entity: "—",
+    watch_outs: "If you're new on the team, watch how Lucina, Rocio, and the senior leads handle customer interactions — they model the standard."
+  },
+  {
+    id: "cafe_crew", name: "Café Team (line + counter + baristas)", entity: "cafe",
+    role: "Café floor and kitchen team",
+    tier: "tier-3",
+    badges: ["tier-3"],
+    summary: "The Café team — line cooks, counter, and baristas who deliver the Café guest experience every service.",
+    reports_to: "noah + dylan + angela",
+    direct_reports: [],
+    decision_authority: "Within shift scope.",
+    systems: "Toast",
+    archetype: "Passion drives the Café experience",
+    cross_entity: "—",
+    watch_outs: "If you're new to the Café team, work alongside Noah and Dylan to learn how the service standard reads on the floor."
+  }
+];
+
+// ============================================================
+// STANDARDS — Day One operating principles
+// ============================================================
+let STANDARDS = [
+  {
+    title: "Customer service is the heart of WNF",
+    why: "Our edge is the relationship we build with every customer who walks through the door. The work that defines WNF is on the floor — meeting customers, answering real questions, sharing what we know and what we love about products. Everything else supports that.",
+    how: "However your shift starts, ask yourself: who's in the store right now, and how can I make their visit better? That's the job."
+  },
+  {
+    title: "Two ways to be great at customer service",
+    why: "Excellence on our floor takes two forms, and we value both. (1) KNOWLEDGE — deep curiosity about natural foods, sourcing, and health. Willing to have real conversations with customers about what they're working through. (2) PASSION — genuine excitement about a great new chocolate bar, the year's best oregano, a product you love. The kind of enthusiasm customers feel from across the room.",
+    how: "Lean into whichever archetype fits you. Knowledge takes time and study — partner with senior staff and ask questions. Passion shows up when you find products that genuinely move you — let that come through when you talk to customers."
+  },
+  {
+    title: "We hold a high bar — together",
+    why: "WNF's standards are deliberately high. The team holds them collectively, not because of pressure, but because we're proud of what we're building. When standards are clear and consistent, everyone knows what to expect of each other and the team gets stronger.",
+    how: "Know what the standard looks like. Ask if you're not sure. If something's slipping — including your own work — the team helps each other recalibrate. Honest conversations are how the standard holds."
+  },
+  {
+    title: "Anchors lead, everyone covers",
+    why: "Roles describe primary responsibility, not exclusive ownership. If a wellness item is missing from the shelf and you spot it, the answer isn't 'that's BoH's job' — it's grab one and put it out. The store works because the team covers each other's small fires.",
+    how: "Know what you anchor. But also: if you see a problem that takes thirty seconds to fix, fix it. Don't wait for the named owner. Don't pass it along."
+  },
+  {
+    title: "Sam and Tyler speak for Joshua",
+    why: "When Joshua isn't in the building — and especially in critical moments, edge cases, or anything unknown — Sam (Culture Queen / Comms Lead) and Tyler (Deputy) carry Joshua's authority. Their word is Joshua's word. This is how the standard holds when the room changes. No going around them, no waiting it out, no second-guessing.",
+    how: "If Joshua isn't reachable and a call needs to be made, route to Sam or Tyler. Sam carries culture, comms, and crew direction; Tyler carries BoH, receiving, and FoH-deputy calls. Their decision stands. Joshua backs them, every time."
+  },
+  {
+    title: "Communication — escalation tiers",
+    why: "Our team is building cleaner habits around what's urgent vs. what can wait. Most things don't need to interrupt a manager or Joshua immediately — but the ones that do, should. Knowing the difference is part of the job.",
+    how: "Use the urgency triage cards below to calibrate. When in doubt, ask your shift lead or manager. The Ops Assistant supports the team on getting communication routed cleanly."
+  },
+  {
+    title: "Joshua's working hours — when to bring what",
+    why: "Joshua's day has rhythms. 5am–12pm is the office / strategic block — best for written briefs, decisions, and bigger questions. 1pm–5pm is floor presence at WNF ('in the pit') — bring floor-level questions and customer-facing items. 5pm–9pm is wrap-up time — good for follow-ups and end-of-day asks. Mon–Thu lean WNF; Fri–Sun lean portfolio.",
+    how: "Match the question to the block. Strategic asks → morning brief or async. Floor questions → afternoon in the pit. End-of-day catch-ups → 5–9pm. Save the morning for the things that actually need real thought."
+  }
+];
+
+// urgency triage (for Standards view)
+let TRIAGE = [
+  {
+    level: "now", label: "Call or text right away",
+    items: [
+      "Customer issue that no one on the floor can resolve",
+      "Something on fire — POS down, cooler down, plumbing leak, power outage",
+      "Anything truly critical or costly that needs to move fast",
+      "Safety or medical incident"
+    ]
+  },
+  {
+    level: "soon", label: "Text or short call within hours",
+    items: [
+      "Inventory issue affecting today's customers",
+      "Vendor delivery rejected or short",
+      "Staff situation a manager wants Joshua looped in on",
+      "Property issue trending toward bigger (slow leak, intermittent HVAC)"
+    ]
+  },
+  {
+    level: "async", label: "Email — Joshua reviews in the morning block",
+    items: [
+      "Status updates that aren't decision-blocking",
+      "FYI for Joshua or for a teammate who's off shift",
+      "Non-urgent vendor or leasing items",
+      "Ideas, suggestions, or proposals that need real thought"
+    ]
+  },
+  {
+    level: "never", label: "Handle in seat — no need to escalate",
+    items: [
+      "Routine supply restocks within established parameters",
+      "Day-to-day decisions inside your role's authority",
+      "Standard commodity supplies (post-its, paper, etc.) — your role can solve it"
+    ]
+  }
+];
+
+// ============================================================
+// WEEK — Joshua's operating rhythm
+// ============================================================
+let WEEK = {
+  days: [
+    { name: "Mon", blocks: [
+      { type: "macro",     label: "5a–12p · Macro / office / decisions" },
+      { type: "store",     label: "1p–5p · WNF 'in the pit'" },
+      { type: "note",      label: "5p–9p · Clean-up / loose ends / wrap-up" },
+      { type: "note",      label: "Eve · Mon kickoff energy — WNF + Café dominant" }
+    ] },
+    { name: "Tue", blocks: [
+      { type: "macro",     label: "5a–12p · Macro block" },
+      { type: "store",     label: "1p–5p · WNF in the pit" },
+      { type: "note",      label: "5p–9p · Wrap-up window" },
+      { type: "invert",    label: "Slots in by season — INVERT pings handled here" }
+    ] },
+    { name: "Wed", blocks: [
+      { type: "macro",     label: "5a–12p · Macro block" },
+      { type: "store",     label: "1p–5p · WNF in the pit" },
+      { type: "note",      label: "5p–9p · Wrap-up window" }
+    ] },
+    { name: "Thu", blocks: [
+      { type: "macro",     label: "5a–12p · Macro block" },
+      { type: "store",     label: "1p–5p · WNF in the pit" },
+      { type: "note",      label: "5p–9p · Wrap-up window" },
+      { type: "note",      label: "Sam returns to floor (Thu–Sun rotation)" }
+    ] },
+    { name: "Fri", blocks: [
+      { type: "macro",     label: "5a–12p · Macro — pivot toward portfolio" },
+      { type: "portfolio", label: "Tao Capital research / DCA prep" },
+      { type: "invert",    label: "INVERT walk / contractor catchup (seasonal)" }
+    ] },
+    { name: "Sat", blocks: [
+      { type: "portfolio", label: "Portfolio research / writing / theses" },
+      { type: "invert",    label: "INVERT — opportunistic" }
+    ] },
+    { name: "Sun", blocks: [
+      { type: "portfolio", label: "Portfolio · weekly review" },
+      { type: "macro",     label: "Strategic synthesis for the week ahead" }
+    ] }
+  ],
+  rules: [
+    {
+      title: "5am–12pm = strategy window",
+      body: "This is when written briefs, decisions, big asks, and creative work belong. The ops assistant should funnel anything requiring real thought into this window."
+    },
+    {
+      title: "1pm–5pm = 'in the pit' at WNF",
+      body: "Joshua is on the floor at WNF, fully reactive, customer-facing. People pull him left and right. Don't try to talk strategy with him during this window — he'll be in floor-mode, not decision-mode. This is when he's most accessible to staff and customers physically, least accessible mentally for new ideas."
+    },
+    {
+      title: "5pm–9pm = clean-up / wrap-up window",
+      body: "Loose ends, follow-ups, the day's tail. Better than the pit window for low-friction asks, end-of-day briefs, and items that need acknowledgment but not deep thought. Don't save high-stakes decisions for here — those go in the morning block."
+    },
+    {
+      title: "Reachable, with cleaner signal",
+      body: "Joshua keeps his phone open. The team is building cleaner habits around what's urgent vs. what can wait. The Ops Assistant supports this — bring questions, get coached on routing."
+    },
+    {
+      title: "INVERT runs seasonally",
+      body: "Spring (turnovers, post-move-out work) and deep winter (cold weather repairs) are the busy windows on the property side. Summer and fall are quieter — good time to plan ahead and build systems."
+    }
+  ]
+};
+
+// ============================================================
+// FLOWS — cross-entity touchpoints (still partially [VERIFY])
+// ============================================================
+let FLOWS = [
+  {
+    name: "Building / facilities",
+    from_to: "WNF Market + Café · INVERT properties",
+    owner: "Joshua + Melchor HVAC + trade pool",
+    verify: "Routes through Joshua today; Ops Assistant becoming first-touch as it ramps.",
+    friction: "When HVAC, plumbing, or building issues come up, log the ticket and route to the right vendor — Melchor for HVAC/refrigeration, Ty for plumbing, etc."
+  },
+  {
+    name: "Receiving dock + back stockroom",
+    from_to: "WNF Market + WNF Café",
+    owner: "Tyler anchors Market receiving; Café receiving runs through Café team.",
+    verify: "Café handles its own purchasing; building-level logistics overlap.",
+    friction: "Coordinate when Café-bound shipments arrive and Café crew isn't on shift."
+  },
+  {
+    name: "Scheduling + payroll",
+    from_to: "WNF Market + WNF Café",
+    owner: "WhenIWork · Rachel anchors Market scheduling · Café scheduling runs through Café managers",
+    verify: "Cross-coverage shifts coordinated between teams.",
+    friction: "When staff cross between Market and Café, confirm which entity is logging the hours."
+  },
+  {
+    name: "Marketing + brand voice",
+    from_to: "WNF Market + WNF Café (shared visual brand)",
+    owner: "Joshua",
+    verify: "Centralized today; future brand support being scoped.",
+    friction: "Brand consistency between Market and Café is a Joshua-led effort — flag content questions through him."
+  },
+  {
+    name: "Sam — cross-entity kitchen consulting",
+    from_to: "WNF Market → WNF Café (special days)",
+    owner: "Sam",
+    verify: "Sam consults at the Café for menu rollouts and new equipment training on scheduled days.",
+    friction: "On consult days, coordinate Market floor coverage."
+  },
+  {
+    name: "External CPA / bookkeeping",
+    from_to: "All four entities",
+    owner: "Joshua + CPA",
+    verify: "Single CPA partner supports books and tax across the entities.",
+    friction: "Finance and document requests route through Joshua."
+  },
+  {
+    name: "Trade vendor crossover",
+    from_to: "WNF building · INVERT properties",
+    owner: "Melchor HVAC · Ty Gardner Plumber · Jerry Window Man · Rudolpho Anaya · trade pool",
+    verify: "Same vendors often handle both sides of the business.",
+    friction: "When booking a vendor, note which entity the work is for so billing and scope stay clean."
+  },
+  {
+    name: "Spring exterior cleaning sequence",
+    from_to: "WNF building · INVERT properties",
+    owner: "Evergreen Clean (pressure wash) → Jerry Window Man (windows)",
+    verify: "Pressure washing happens FIRST, then window cleaning. Reverse the order and freshly cleaned windows get re-dirtied.",
+    friction: "Coordinate Evergreen Clean [contact via manager] a week or two before booking Jerry [contact via manager]. Don't book them on the same day."
+  }
+];
+
+// ============================================================
+// BREAK_GLASS — emergency playbook
+// ============================================================
+let BREAK_GLASS = [
+  {
+    title: "POS / OrderDog goes down (Market)",
+    severity: "high", severity_label: "Revenue stops",
+    primary: "Tyler", secondary: "Sam, Rachel, or floor lead on shift",
+    steps: [
+      "Switch register to manual / paper transactions — tally cash and card amounts on tape",
+      "Call OrderDog support: [VERIFY phone] — tell them store is down",
+      "Do NOT turn customers away — keep selling",
+      "Note start time on a sticky for later reconciliation",
+      "Notify Joshua via iMessage if outage > 30 min"
+    ],
+    escalate: "Joshua if outage exceeds 30 minutes OR happens during a high-volume window."
+  },
+  {
+    title: "Toast / POS down (Café)",
+    severity: "high", severity_label: "Café revenue stops",
+    primary: "Noah (Toast pro)", secondary: "Angela",
+    steps: [
+      "Switch to manual orders / paper tickets",
+      "Call Toast support: [VERIFY phone]",
+      "Keep service running — do NOT close the line",
+      "Document start time, sales pattern for reconciliation",
+      "Notify Joshua if outage > 30 min"
+    ],
+    escalate: "Joshua if outage > 30 min or during peak service."
+  },
+  {
+    title: "Power outage (whole building)",
+    severity: "high", severity_label: "Cooler/freezer at risk",
+    primary: "Tyler", secondary: "Angela (Café side)",
+    steps: [
+      "Keep cooler / freezer doors CLOSED — every open cycle costs product",
+      "Call Chelan County PUD emergency line: [contact via manager] — 24/7 for power outage OR water main break. Get an ETA.",
+      "If outage > 4 hours projected, start product triage on most temp-sensitive",
+      "Notify Joshua immediately — this is a board-stakes call",
+      "Document everything for insurance"
+    ],
+    escalate: "Joshua immediately. INVERT side if building-electrical issue."
+  },
+  {
+    title: "Walk-in cooler / freezer / produce case failure",
+    severity: "high", severity_label: "Inventory at risk",
+    primary: "Melchor HVAC & Refrigeration · [contact via manager]", secondary: "BACKUP #1: Columbia Cooling — Kyle [contact via manager] · BACKUP #2: Salcido Connection [contact via manager] · Commercial HVAC backup: Pedro / Central WA Air [contact via manager] · Tyler · Joshua",
+    steps: [
+      "Verify it's actually failing (temp reading, not just door left open)",
+      "Call Melchor HVAC & Refrigeration immediately: [contact via manager] — primary for ALL HVAC + cooler/freezer + produce case issues",
+      "If Melchor unavailable / not responding within 30 min — call BACKUP #1: Columbia Cooling — Kyle [contact via manager]",
+      "If Columbia Cooling also unavailable — call BACKUP #2: Salcido Connection [contact via manager] (615 N Wenatchee Ave C-1, 24/7)",
+      "For commercial HVAC system issues (rooftop units, building HVAC) where refrigeration vendors aren't the right call: Pedro / Central WA Air [contact via manager]",
+      "Move product to backup cooler if available",
+      "Document temp readings every 30 min until resolved",
+      "Photo evidence of any product loss for insurance"
+    ],
+    escalate: "Joshua immediately for any cooler down > 30 min."
+  },
+  {
+    title: "Staff no-show / can't open",
+    severity: "med", severity_label: "Service impact",
+    primary: "Manager on call (Sam/Tyler/Rachel Market · Angela Café)",
+    secondary: "Lucina + floor lead bench (Market) · Noah (Café)",
+    steps: [
+      "Check WhenIWork for swap requests not yet seen",
+      "Call/text the no-show — confirm if emergency or ghost",
+      "Pull from on-call list: [VERIFY who's willing to come in last-minute]",
+      "If can't open on time — sign on door + post to social: [VERIFY who has access]",
+      "Notify Joshua only if open is delayed > 30 min"
+    ],
+    escalate: "Joshua only if pattern (3rd time same person same month) or unable to staff the shift."
+  },
+  {
+    title: "Customer incident (medical / theft / disturbance)",
+    severity: "high", severity_label: "Safety-first",
+    primary: "Manager on shift (Sam/Tyler/Rachel · Angela)",
+    secondary: "Lucina + floor lead bench · Noah · Dylan",
+    steps: [
+      "Medical → call 911 first, stay with customer, clear the area, do NOT diagnose",
+      "Theft → do NOT pursue out the door. Document description, time, items. Review camera later.",
+      "Disturbance → calm voice, ask to leave, call non-emergency police if escalates: [VERIFY number]",
+      "Fill out incident log: [VERIFY where]",
+      "Notify Joshua same day for any 911 or police involvement"
+    ],
+    escalate: "Joshua same day for any safety event. Insurance needs same-week documentation."
+  },
+  {
+    title: "Vendor delivery rejected / missing",
+    severity: "low", severity_label: "Operational",
+    primary: "Tyler", secondary: "Bobby (frozen) · [VERIFY Café side]",
+    steps: [
+      "Document what's wrong — photo, count, temp reading if applicable",
+      "Note on the BOL / paperwork before driver leaves",
+      "Call vendor rep within 24 hours",
+      "Adjust OrderDog inventory accordingly",
+      "Flag to Joshua only if recurring pattern"
+    ],
+    escalate: "Joshua only if vendor relationship at stake or > $X loss."
+  },
+  {
+    title: "INVERT — tenant emergency (water leak, no heat in winter, broken window, lockout)",
+    severity: "high", severity_label: "Tenant safety / property risk",
+    primary: "Trade-specific dispatch", secondary: "Tyler Burns (GC) · Joshua",
+    steps: [
+      "Get tenant on phone — confirm immediate safety",
+      "Dispatch by issue: WATER → Ty Gardner Plumber [contact via manager] · WATER AFTER-HOURS / Ty unreachable → After Hours Plumbing [contact via manager] (24/7) · SEPTIC / BACKED-UP DRAIN / SNAKE → Septic Greg 'Snakeman' [contact via manager] · HEAT/HVAC → Melchor HVAC [contact via manager] (BACKUP: Salcido Connection [contact via manager]) · ELECTRICAL → Jordan Dovich [contact via manager] · ROOF/LEAK FROM ABOVE → Rigoberto Roofer [contact via manager] · WINDOW → Jerry Window Man [contact via manager] · GENERAL/STRUCTURAL → General Lee Mendez [contact via manager] (PRIMARY GC) — Backup: Tyler Burns [contact via manager] · HANDYMAN/SMALL-FIX → General Lee Mendez [contact via manager] (PRIMARY) — Backup: Rigoberto [contact via manager] · LANDSCAPE/SPRINKLER → Rudolpho Anaya [contact via manager] · LOCKOUT → Keyhole Security [contact via manager] · INTERNET/PHONE (WNF + Café) → LocalTel [contact via manager] (demand commercial service, pin to phone diagnostic or tech-out) · DISTURBANCE/TRESPASSER → RiverCom non-emergency [contact via manager] / 911 if danger · MOLD / FLOOD / FIRE RESTORATION → Restoration 1 [contact via manager] (PRIMARY, 24/7) — Backup: France & Company [contact via manager] (24/7, biohazard-capable)",
+      "Notify Joshua if leak / no-heat / structural — defensive-mode means we move fast",
+      "Document with photos for insurance",
+      "Follow up with tenant within 24 hours to close the loop"
+    ],
+    escalate: "Joshua immediately for any structural / safety / no-heat-in-winter event."
+  }
+];
+
+// ============================================================
+// RENDERERS
+// ============================================================
+const board = document.body;
+
+function renderPeople(filter = "", tier = "all") {
+  const el = document.getElementById("people");
+  const f = filter.toLowerCase();
+
+  el.innerHTML = `
+    <div class="people-controls">
+      <input class="search" id="search" placeholder="Search people, roles, nicknames…" value="${escapeAttr(filter)}">
+      <button class="filter-pill ${tier==='all'?'active':''}" data-tier="all">All</button>
+      <button class="filter-pill ${tier==='tier-1'?'active':''}" data-tier="tier-1">Managers</button>
+      <button class="filter-pill ${tier==='tier-2'?'active':''}" data-tier="tier-2">Leads</button>
+      <button class="filter-pill ${tier==='tier-3'?'active':''}" data-tier="tier-3">Team</button>
+      <button class="filter-pill ${tier==='cross-entity'?'active':''}" data-tier="cross-entity">Cross-entity</button>
+      <button class="filter-pill ${tier==='hiring'?'active':''}" data-tier="hiring">Hiring</button>
+      <button class="filter-pill ${tier==='external'?'active':''}" data-tier="external">External Partners</button>
+    </div>
+    <button class="add-btn" data-add="person">+ Add Person</button>
+    <div class="info-banner">
+      <strong>How to read this.</strong> Cards are grouped by entity (Market, Café, INVERT, plus across-the-business roles). Filter pills narrow by role type. Click any card to open the full profile. The customer experience is at the heart of what we do — every role on this chart supports that work.
+    </div>
+    ${renderEntitySection("market", filter, tier)}
+    ${renderEntitySection("cafe", filter, tier)}
+    ${renderEntitySection("invert", filter, tier)}
+    ${renderEntitySection("all", filter, tier, "Across / External / AI")}
+  `;
+
+  document.getElementById("search").addEventListener("input", e => renderPeople(e.target.value, tier));
+  el.querySelectorAll(".filter-pill").forEach(btn => {
+    btn.addEventListener("click", () => renderPeople(filter, btn.dataset.tier));
+  });
+  el.querySelectorAll(".person").forEach(node => {
+    node.addEventListener("click", (ev) => {
+      if (ev.target.closest(".edit-actions")) return;
+      openDrawer(node.dataset.id);
+    });
+  });
+  el.querySelectorAll(".edit-actions [data-edit-person]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      openPersonEditor(btn.dataset.editPerson);
+    });
+  });
+  el.querySelectorAll(".edit-actions [data-del-person]").forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const id = btn.dataset.delPerson;
+      const p = PEOPLE.find(x => x.id === id);
+      if (p && confirm(`Delete "${p.name}"? This can be undone with Reset.`)) {
+        PEOPLE = PEOPLE.filter(x => x.id !== id);
+        persist();
+        renderAll();
+      }
+    });
+  });
+  el.querySelectorAll("[data-add='person']").forEach(btn => {
+    btn.addEventListener("click", () => openPersonEditor(null));
+  });
+}
+
+function renderEntitySection(entityKey, filter, tier, overrideTitle) {
+  const f = filter.toLowerCase();
+  const entityMeta = ENTITIES[entityKey] || { name: overrideTitle, tag: "", desc: "" };
+  const filtered = PEOPLE.filter(p => {
+    const matchEntity = entityKey === "all" ? (p.entity === "all" || p.tier === "external" || p.tier === "ai-future") : (p.entity === entityKey);
+    if (!matchEntity) return false;
+    if (tier !== "all") {
+      if (tier === "cross-entity" && !p.badges.includes("cross-entity")) return false;
+      else if (tier === "hiring" && p.tier !== "hiring") return false;
+      else if (tier === "external" && p.tier !== "external") return false;
+      else if (tier === "ai-future" && p.tier !== "ai-future") return false;
+      else if (["tier-1","tier-2","tier-3"].includes(tier) && p.tier !== tier) return false;
+    }
+    if (f && !p.name.toLowerCase().includes(f) && !p.role.toLowerCase().includes(f) && !(p.nick||"").toLowerCase().includes(f)) return false;
+    return true;
+  });
+  if (filtered.length === 0) return "";
+  return `
+    <div class="entity-section">
+      <h2>${entityMeta.name}</h2>
+      <span class="entity-tag">${entityMeta.tag || ""}</span>
+      <div class="people-grid">
+        ${filtered.map(p => `
+          <div class="person ${p.tier}" data-id="${p.id}">
+            <div class="edit-actions">
+              <button data-edit-person="${p.id}" title="Edit">&#9998;</button>
+              <button class="del" data-del-person="${p.id}" title="Delete">&times;</button>
+            </div>
+            <div class="row">
+              <h4>${p.name} ${p.nick ? `<span class="nick">"${p.nick}"</span>` : ''}</h4>
+            </div>
+            <div class="role">${p.role}</div>
+            <div class="summary">${p.summary}</div>
+            <div class="badges">
+              ${(p.badges||[]).map(b => `<span class="badge ${b}">${b.replace('-', ' ')}</span>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function openDrawer(id) {
+  const p = PEOPLE.find(x => x.id === id);
+  if (!p) return;
+  const reportsName = id => {
+    if (!id || id === "—") return "—";
+    const rp = PEOPLE.find(x => x.id === id);
+    return rp ? rp.name : id;
+  };
+  const directReports = (p.direct_reports || []).map(r => reportsName(r)).join(", ") || "—";
+  document.getElementById("drawer-body").innerHTML = `
+    <div class="role-big">${ENTITIES[p.entity]?.name || (p.entity === 'all' ? 'All Entities' : p.entity)}</div>
+    <h2>${p.name}</h2>
+    ${p.nick ? `<div class="nick-big">"${p.nick}"</div>` : ''}
+    <div class="role-big">${p.role}</div>
+    <div class="badges">
+      ${p.badges.map(b => `<span class="badge ${b}">${b.replace('-', ' ')}</span>`).join('')}
+    </div>
+
+    <div class="field"><div class="label">Summary</div><div class="value">${p.summary}</div></div>
+    ${p.phone ? `<div class="field"><div class="label">Phone</div><div class="value" style="font-family:'JetBrains Mono', monospace; color:var(--pink);">${p.phone}</div></div>` : ''}
+    ${p.contact_label ? `<div class="field"><div class="label">Contact label</div><div class="value dim">${p.contact_label}</div></div>` : ''}
+    <div class="field"><div class="label">Reports to</div><div class="value">${p.reports_to}</div></div>
+    <div class="field"><div class="label">Direct reports</div><div class="value">${directReports}</div></div>
+    <div class="field"><div class="label">Decision authority</div><div class="value">${p.decision_authority}</div></div>
+    <div class="field"><div class="label">Systems they touch</div><div class="value">${p.systems}</div></div>
+    <div class="field"><div class="label">CS archetype</div><div class="value">${p.archetype}</div></div>
+    <div class="field"><div class="label">Cross-entity touchpoints</div><div class="value">${p.cross_entity}</div></div>
+    <div class="field"><div class="label">Watch-outs</div><div class="value">${p.watch_outs}</div></div>
+  `;
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("mask").classList.add("open");
+}
+function closeDrawer() {
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("mask").classList.remove("open");
+}
+
+function renderTree() {
+  const el = document.getElementById("tree");
+  const buildEntity = (key) => {
+    const e = ENTITIES[key];
+    const inEntity = PEOPLE.filter(p => p.entity === key);
+    const t1 = inEntity.filter(p => p.tier === "tier-1");
+    const t2 = inEntity.filter(p => p.tier === "tier-2");
+    const spec = inEntity.filter(p => p.tier === "specialist" || p.tier === "tier-3");
+    const ext = inEntity.filter(p => p.tier === "external" || p.tier === "ai-future");
+    const renderNodes = (people, cls) => people.map(p => `
+      <div class="tree-node ${cls} ${p.badges.includes('cross-entity')?'cross':''}" data-id="${p.id}">${p.name}${p.nick?` "${p.nick}"`:''}</div>
+    `).join('');
+    return `
+      <div class="tree-entity">
+        <h3>${e.name}</h3>
+        <div class="entity-meta">${e.tag}</div>
+        ${t1.length ? `<div class="tree-tier"><div class="tier-label">Managers</div>${renderNodes(t1, 'tier-1')}</div>` : ''}
+        ${t2.length ? `<div class="tree-tier"><div class="tier-label">Leads</div>${renderNodes(t2, 'tier-2')}</div>` : ''}
+        ${spec.length ? `<div class="tree-tier"><div class="tier-label">Team + specialists</div>${renderNodes(spec, '')}</div>` : ''}
+        ${ext.length ? `<div class="tree-tier"><div class="tier-label">External partners</div>${renderNodes(ext, '')}</div>` : ''}
+      </div>
+    `;
+  };
+  const ownerCard = (() => {
+    const j = PEOPLE.find(p => p.id === "joshua");
+    return `
+      <div class="tree-entity" style="border-color:var(--pink); box-shadow:var(--glow-pink); grid-column:1/-1;">
+        <h3>${j.name} <span class="nick">"${j.nick}"</span></h3>
+        <div class="entity-meta">${j.role}</div>
+        <div style="font-size:13px; color:var(--ink); line-height:1.6;">${j.summary}</div>
+      </div>
+    `;
+  })();
+  const opsAssistant = (() => {
+    const o = PEOPLE.find(p => p.id === "ops_assistant");
+    return `
+      <div class="tree-entity" style="border-color:var(--orange); grid-column:1/-1;">
+        <h3>${o.name} <span style="color:var(--orange);">· hiring</span></h3>
+        <div class="entity-meta">${o.role}</div>
+        <div style="font-size:13px; color:var(--ink); line-height:1.6;">${o.summary}</div>
+      </div>
+    `;
+  })();
+  el.innerHTML = `
+    <div class="info-banner"><strong>Tree view.</strong> Joshua at center, four entities below, managers at the top of each. Click any chip to open the full profile. Cross-entity people (dashed border) appear in their primary entity but support work in another.</div>
+    <div class="tree-grid">
+      ${ownerCard}
+      ${opsAssistant}
+      ${buildEntity("market")}
+      ${buildEntity("cafe")}
+      ${buildEntity("invert")}
+      ${buildEntity("tao")}
+    </div>
+  `;
+  el.querySelectorAll(".tree-node").forEach(n => n.addEventListener("click", () => openDrawer(n.dataset.id)));
+}
+
+function renderCadences() {
+  const el = document.getElementById("cadences");
+  el.innerHTML = `
+    <div class="info-banner"><strong>Joshua's week.</strong> 5am–12pm = office / strategic block (best window for written briefs and decisions). 1pm–5pm = WNF floor presence — bring floor questions here. 5pm–9pm = wrap-up window. Mon–Thu lean WNF; Fri–Sun lean portfolio. INVERT runs heavier in spring and winter.</div>
+    <div class="week-grid">
+      ${WEEK.days.map(d => `
+        <div class="day-col">
+          <h5>${d.name}</h5>
+          ${d.blocks.map(b => `<div class="block ${b.type}">${b.label}</div>`).join('')}
+        </div>
+      `).join('')}
+    </div>
+    <h3 style="margin-top:24px; font-size:16px; color:var(--pink);">Operating Rules of the Rhythm</h3>
+    <div class="rhythm-rules">
+      ${WEEK.rules.map(r => `
+        <div class="rule-card">
+          <h4>${r.title}</h4>
+          <div class="body">${r.body}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderFlows() {
+  const el = document.getElementById("flows");
+  el.innerHTML = `
+    <div class="info-banner"><strong>Cross-entity flows.</strong> Things that touch multiple parts of the business — building, scheduling, vendors, brand. Useful reference for the Ops Assistant and anyone whose work crosses entities.</div>
+    <button class="add-btn" data-add="flow">+ Add Flow</button>
+    ${FLOWS.map((f, i) => `
+      <div class="flow" data-flow-index="${i}">
+        <div class="edit-actions">
+          <button data-edit-flow="${i}" title="Edit">&#9998;</button>
+          <button class="del" data-del-flow="${i}" title="Delete">&times;</button>
+        </div>
+        <h4>${f.name}</h4>
+        <div class="from-to">${f.from_to}</div>
+        <div class="row"><span><span class="label">Owner today · </span>${f.owner}</span></div>
+        <div class="row"><span><span class="label">Verify · </span>${f.verify}</span></div>
+        <div class="friction"><strong>Friction / open question:</strong> ${f.friction}</div>
+      </div>
+    `).join('')}
+  `;
+  el.querySelectorAll("[data-add='flow']").forEach(btn => btn.addEventListener("click", () => openFlowEditor(null)));
+  el.querySelectorAll("[data-edit-flow]").forEach(btn => btn.addEventListener("click", (ev) => { ev.stopPropagation(); openFlowEditor(parseInt(btn.dataset.editFlow,10)); }));
+  el.querySelectorAll("[data-del-flow]").forEach(btn => btn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    const i = parseInt(btn.dataset.delFlow,10);
+    if (confirm(`Delete flow "${FLOWS[i].name}"?`)) { FLOWS.splice(i,1); persist(); renderAll(); }
+  }));
+}
+
+function renderStandards() {
+  const el = document.getElementById("standards");
+  el.innerHTML = `
+    <div class="info-banner"><strong>Day One Standards.</strong> The principles that guide how we work at WNF. Read these before your first shift and refer back when you want to recalibrate.</div>
+    <button class="add-btn" data-add="standard">+ Add Standard</button>
+    ${STANDARDS.map((s, i) => `
+      <div class="standard" data-standard-index="${i}">
+        <div class="edit-actions">
+          <button data-edit-standard="${i}" title="Edit">&#9998;</button>
+          <button class="del" data-del-standard="${i}" title="Delete">&times;</button>
+        </div>
+        <h3>${s.title}</h3>
+        <div class="why">${s.why}</div>
+        <div class="how"><strong>How to apply: </strong>${s.how}</div>
+      </div>
+    `).join('')}
+
+    <h3 style="margin-top:28px; font-size:16px; color:var(--pink);">Communication — when to call, text, email, or hold</h3>
+    <div class="info-banner" style="margin-top:8px;">Use these cards to figure out the right channel for what's coming up. When in doubt, ask your shift lead, manager, or the Ops Assistant.</div>
+    <div class="triage-grid">
+      ${TRIAGE.map(t => `
+        <div class="triage-card ${t.level}">
+          <h5>${t.label}</h5>
+          <ul>${t.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  el.querySelectorAll("[data-add='standard']").forEach(btn => btn.addEventListener("click", () => openStandardEditor(null)));
+  el.querySelectorAll("[data-edit-standard]").forEach(btn => btn.addEventListener("click", (ev) => { ev.stopPropagation(); openStandardEditor(parseInt(btn.dataset.editStandard,10)); }));
+  el.querySelectorAll("[data-del-standard]").forEach(btn => btn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    const i = parseInt(btn.dataset.delStandard,10);
+    if (confirm(`Delete standard "${STANDARDS[i].title}"?`)) { STANDARDS.splice(i,1); persist(); renderAll(); }
+  }));
+}
+
+function renderBreakGlass() {
+  const el = document.getElementById("break-glass");
+  el.innerHTML = `
+    <div class="info-banner"><strong>Break-glass playbook.</strong> When something urgent happens, start here. Each card lists who to call, what to do, and when to escalate. Some support phone numbers are still being filled in — flag what's missing as you encounter it.</div>
+    <button class="add-btn" data-add="bg">+ Add Break-Glass Card</button>
+    <div class="bg-grid">
+      ${BREAK_GLASS.map((b, i) => `
+        <div class="bg-card" data-bg-index="${i}">
+          <div class="edit-actions">
+            <button data-edit-bg="${i}" title="Edit">&#9998;</button>
+            <button class="del" data-del-bg="${i}" title="Delete">&times;</button>
+          </div>
+          <div class="head">
+            <h3>${b.title}</h3>
+            <span class="severity sev-${b.severity}">${b.severity} · ${b.severity_label}</span>
+          </div>
+          <div class="calltree">
+            <span class="who"><strong>PRIMARY · </strong>${b.primary}</span>
+            <span class="who"><strong>BACKUP · </strong>${b.secondary}</span>
+          </div>
+          <ol>${b.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+          <div class="escalate"><strong>Escalate to Joshua: </strong>${b.escalate}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  el.querySelectorAll("[data-add='bg']").forEach(btn => btn.addEventListener("click", () => openBreakGlassEditor(null)));
+  el.querySelectorAll("[data-edit-bg]").forEach(btn => btn.addEventListener("click", (ev) => { ev.stopPropagation(); openBreakGlassEditor(parseInt(btn.dataset.editBg,10)); }));
+  el.querySelectorAll("[data-del-bg]").forEach(btn => btn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    const i = parseInt(btn.dataset.delBg,10);
+    if (confirm(`Delete break-glass card "${BREAK_GLASS[i].title}"?`)) { BREAK_GLASS.splice(i,1); persist(); renderAll(); }
+  }));
+}
+
+// ============================================================
+// Tab switching
+// ============================================================
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.view).classList.add("active");
+    // ensure each view is rendered when first shown
+    if (btn.dataset.view === "tree" && !document.querySelector("#tree .tree-grid")) renderTree();
+    if (btn.dataset.view === "cadences" && !document.querySelector("#cadences .week-grid")) renderCadences();
+    if (btn.dataset.view === "flows" && !document.querySelector("#flows .flow")) renderFlows();
+    if (btn.dataset.view === "standards" && !document.querySelector("#standards .standard")) renderStandards();
+    if (btn.dataset.view === "break-glass" && !document.querySelector("#break-glass .bg-card")) renderBreakGlass();
+  });
+});
+document.getElementById("drawer-close").addEventListener("click", closeDrawer);
+document.getElementById("mask").addEventListener("click", closeDrawer);
+
+// ============================================================
+// Edit mode · localStorage persistence · Import / Export
+// ============================================================
+const STORAGE_KEY = "atlas-v2-data";
+
+function escapeAttr(s) {
+  return String(s == null ? "" : s).replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function currentDataSnapshot() {
+  return { entities: ENTITIES, people: PEOPLE, standards: STANDARDS, week: WEEK, flows: FLOWS, break_glass: BREAK_GLASS, triage: TRIAGE };
+}
+
+function persist() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentDataSnapshot()));
+    document.body.classList.add("has-edits");
+  } catch (e) {
+    console.warn("persist failed", e);
+  }
+}
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (data.entities)    ENTITIES    = data.entities;
+    if (data.people)      PEOPLE      = data.people;
+    if (data.standards)   STANDARDS   = data.standards;
+    if (data.week)        WEEK        = data.week;
+    if (data.flows)       FLOWS       = data.flows;
+    if (data.break_glass) BREAK_GLASS = data.break_glass;
+    if (data.triage)      TRIAGE      = data.triage;
+    document.body.classList.add("has-edits");
+    return true;
+  } catch (e) {
+    console.warn("loadFromStorage failed", e);
+    return false;
+  }
+}
+
+function resetData() {
+  if (!confirm("Reset all data to the file defaults? This will wipe your local edits and reload the page.")) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  location.reload();
+}
+
+function renderAll() {
+  // Preserve current active tab
+  const active = document.querySelector(".tab-btn.active");
+  renderPeople();
+  renderTree();
+  renderCadences();
+  renderFlows();
+  renderStandards();
+  renderBreakGlass();
+  if (active) {
+    // nothing to do; views remain visible based on .active class on sections
+  }
+}
+
+// ---- Edit-mode toggle ----
+document.getElementById("edit-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("edit-mode");
+  const on = document.body.classList.contains("edit-mode");
+  const btn = document.getElementById("edit-toggle");
+  btn.classList.toggle("edit-on", on);
+  btn.innerHTML = on ? "&#10003; Done" : "&#9998; Edit";
+});
+
+// ---- Export dropdown ----
+const exportBtn = document.getElementById("export-btn");
+const exportDropdown = document.getElementById("export-dropdown");
+exportBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  exportDropdown.classList.toggle("open");
+});
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".export-menu")) exportDropdown.classList.remove("open");
+});
+exportDropdown.addEventListener("click", (e) => {
+  const action = e.target.dataset.action;
+  if (!action) return;
+  exportDropdown.classList.remove("open");
+  if (action === "export-html") exportHTML();
+  if (action === "export-json") exportJSON();
+  if (action === "import-json") document.getElementById("import-file").click();
+  if (action === "reset") resetData();
+});
+document.getElementById("import-file").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (typeof data !== "object" || data === null) throw new Error("Not an object");
+      // soft-validate shape
+      if (data.entities)    ENTITIES    = data.entities;
+      if (Array.isArray(data.people))      PEOPLE      = data.people;
+      if (Array.isArray(data.standards))   STANDARDS   = data.standards;
+      if (data.week && Array.isArray(data.week.days))   WEEK        = data.week;
+      if (Array.isArray(data.flows))       FLOWS       = data.flows;
+      if (Array.isArray(data.break_glass)) BREAK_GLASS = data.break_glass;
+      if (Array.isArray(data.triage))      TRIAGE      = data.triage;
+      persist();
+      renderAll();
+      alert("Import complete.");
+    } catch (err) {
+      alert("Import failed: " + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = ""; // allow re-import of same filename
+});
+
+function downloadFile(name, content, mime) {
+  const blob = new Blob([content], { type: mime || "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+}
+
+function exportJSON() {
+  downloadFile("operating_atlas_data.json", JSON.stringify(currentDataSnapshot(), null, 2), "application/json");
+}
+
+// Rebuild a clean HTML file by swapping each `let X = ...;` data block in the
+// captured original script source with the current in-memory value.
+function exportHTML() {
+  let scriptText = __ORIGINAL_SCRIPT_TEXT;
+  if (!scriptText) {
+    alert("Could not access the original script source. Try Export JSON instead.");
+    return;
+  }
+  const replaceBlock = (src, varName, valueJSON) => {
+    // Each top-level data block opens with `let VARNAME = [` or `let VARNAME = {`
+    // and closes with a matching `\n];` or `\n};` at the start of a line.
+    // Lazy match the body, then require the closer to be on its own line.
+    const re = new RegExp("(let\\s+" + varName + "\\s*=\\s*)([\\s\\S]*?)(\\n\\][;]|\\n\\}[;])", "");
+    if (!re.test(src)) {
+      console.warn("Could not match block for " + varName);
+      return src;
+    }
+    return src.replace(re, (m, prefix) => prefix + valueJSON + ";");
+  };
+
+  const data = currentDataSnapshot();
+  scriptText = replaceBlock(scriptText, "ENTITIES",    JSON.stringify(data.entities,    null, 2));
+  scriptText = replaceBlock(scriptText, "PEOPLE",      JSON.stringify(data.people,      null, 2));
+  scriptText = replaceBlock(scriptText, "STANDARDS",   JSON.stringify(data.standards,   null, 2));
+  scriptText = replaceBlock(scriptText, "TRIAGE",      JSON.stringify(data.triage,      null, 2));
+  scriptText = replaceBlock(scriptText, "WEEK",        JSON.stringify(data.week,        null, 2));
+  scriptText = replaceBlock(scriptText, "FLOWS",       JSON.stringify(data.flows,       null, 2));
+  scriptText = replaceBlock(scriptText, "BREAK_GLASS", JSON.stringify(data.break_glass, null, 2));
+
+  // Build the full HTML: take everything outside the inline script tag and splice ours back in.
+  const html = document.documentElement.outerHTML;
+  // Replace the inline data script — match the *first* script that contains our marker line.
+  const marker = "let ENTITIES";
+  const scriptOpen = "<" + "script";
+  const scriptClose = "<" + "/script>";
+  const scriptRegex = new RegExp(scriptOpen + "\\b[^>]*>([\\s\\S]*?)" + scriptClose, "gi");
+  let replaced = false;
+  const out = html.replace(scriptRegex, (match, inner) => {
+    if (!replaced && inner.indexOf(marker) !== -1) {
+      replaced = true;
+      return "<" + "script>" + scriptText + "<" + "/script>";
+    }
+    return match;
+  });
+  if (!replaced) {
+    alert("Could not splice script back in. Use Export JSON instead.");
+    return;
+  }
+  downloadFile("operating_atlas_v2.html", "<!DOCTYPE html>\n" + out, "text/html");
+}
+
+// ============================================================
+// Editors — open the drawer in edit mode for each card type
+// ============================================================
+function openEditDrawer(html) {
+  document.getElementById("drawer-body").innerHTML = html;
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("mask").classList.add("open");
+}
+
+function fieldInput(label, name, value, opts = {}) {
+  const v = value == null ? "" : value;
+  const hint = opts.hint ? `<div class="hint">${opts.hint}</div>` : "";
+  if (opts.textarea) {
+    return `<div class="form-field"><label>${label}</label><textarea name="${name}" rows="${opts.rows || 3}">${escapeHtml(v)}</textarea>${hint}</div>`;
+  }
+  return `<div class="form-field"><label>${label}</label><input name="${name}" type="text" value="${escapeAttr(v)}">${hint}</div>`;
+}
+
+function fieldSelect(label, name, value, options) {
+  return `<div class="form-field"><label>${label}</label><select name="${name}">` +
+    options.map(o => `<option value="${escapeAttr(o.value)}" ${o.value === value ? "selected" : ""}>${escapeHtml(o.label)}</option>`).join("") +
+    `</select></div>`;
+}
+
+function collectForm(formEl) {
+  const out = {};
+  formEl.querySelectorAll("input[name], textarea[name], select[name]").forEach(el => {
+    out[el.name] = el.value;
+  });
+  return out;
+}
+
+function makePersonId(name) {
+  const base = (name || "person").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "person";
+  let id = base, n = 1;
+  while (PEOPLE.some(p => p.id === id)) { id = base + "_" + (++n); }
+  return id;
+}
+
+function openPersonEditor(id) {
+  const isNew = !id;
+  const p = isNew
+    ? { id: "", name: "", nick: "", role: "", entity: "market", tier: "tier-3", phone: "", contact_label: "Ask a manager for contact info", badges: [], summary: "", reports_to: "", direct_reports: [], decision_authority: "", systems: "", archetype: "", cross_entity: "", watch_outs: "" }
+    : JSON.parse(JSON.stringify(PEOPLE.find(x => x.id === id) || {}));
+
+  const entityOptions = [
+    { value: "market", label: "WNF Market" },
+    { value: "cafe",   label: "WNF Café" },
+    { value: "invert", label: "INVERT Inc" },
+    { value: "tao",    label: "Tao Capital" },
+    { value: "all",    label: "All / cross-entity" }
+  ];
+  const tierOptions = [
+    { value: "owner",      label: "Owner" },
+    { value: "tier-1",     label: "Tier 1 — Manager" },
+    { value: "tier-2",     label: "Tier 2 — Lead" },
+    { value: "tier-3",     label: "Tier 3 — Team" },
+    { value: "specialist", label: "Specialist" },
+    { value: "hiring",     label: "Hiring (open seat)" },
+    { value: "external",   label: "External partner" },
+    { value: "ai-future",  label: "AI / future seat" }
+  ];
+
+  const html = `
+    <form id="edit-form" onsubmit="return false;">
+      <h2>${isNew ? "Add Person" : "Edit Person"}</h2>
+      <div class="role-big">${isNew ? "New entry" : (p.name || "")}</div>
+      ${fieldInput("Name", "name", p.name)}
+      ${fieldInput("Nickname", "nick", p.nick)}
+      ${fieldInput("Role", "role", p.role)}
+      ${fieldSelect("Entity", "entity", p.entity, entityOptions)}
+      ${fieldSelect("Tier", "tier", p.tier, tierOptions)}
+      ${fieldInput("Phone", "phone", p.phone)}
+      ${fieldInput("Contact label", "contact_label", p.contact_label, { textarea: true, rows: 2 })}
+      ${fieldInput("Badges (comma-separated)", "badges", (p.badges || []).join(", "), { hint: "e.g. tier-1, knowledge, cross-entity, dev, hiring, external, passion, ai-future, watch, all-entities" })}
+      ${fieldInput("Summary", "summary", p.summary, { textarea: true, rows: 4 })}
+      ${fieldInput("Reports to", "reports_to", p.reports_to)}
+      ${fieldInput("Direct reports (comma-separated IDs)", "direct_reports", (p.direct_reports || []).join(", "), { hint: "Use the lowercase IDs (e.g. sam, tyler, rachel)" })}
+      ${fieldInput("Decision authority", "decision_authority", p.decision_authority, { textarea: true, rows: 3 })}
+      ${fieldInput("Systems they touch", "systems", p.systems)}
+      ${fieldInput("CS archetype", "archetype", p.archetype)}
+      ${fieldInput("Cross-entity touchpoints", "cross_entity", p.cross_entity)}
+      ${fieldInput("Watch-outs", "watch_outs", p.watch_outs, { textarea: true, rows: 4 })}
+      <div class="form-actions">
+        <button type="button" class="cancel" id="form-cancel">Cancel</button>
+        <button type="button" class="save"   id="form-save">Save</button>
+      </div>
+    </form>
+  `;
+  openEditDrawer(html);
+  document.getElementById("form-cancel").addEventListener("click", closeDrawer);
+  document.getElementById("form-save").addEventListener("click", () => {
+    const v = collectForm(document.getElementById("edit-form"));
+    const next = {
+      id: isNew ? makePersonId(v.name) : p.id,
+      name: v.name.trim(),
+      nick: v.nick.trim(),
+      role: v.role.trim(),
+      entity: v.entity,
+      tier: v.tier,
+      phone: v.phone.trim(),
+      contact_label: v.contact_label.trim(),
+      badges: v.badges.split(",").map(s => s.trim()).filter(Boolean),
+      summary: v.summary.trim(),
+      reports_to: v.reports_to.trim(),
+      direct_reports: v.direct_reports.split(",").map(s => s.trim()).filter(Boolean),
+      decision_authority: v.decision_authority.trim(),
+      systems: v.systems.trim(),
+      archetype: v.archetype.trim(),
+      cross_entity: v.cross_entity.trim(),
+      watch_outs: v.watch_outs.trim()
+    };
+    if (!next.name) { alert("Name is required."); return; }
+    if (isNew) PEOPLE.push(next);
+    else {
+      const idx = PEOPLE.findIndex(x => x.id === p.id);
+      if (idx >= 0) PEOPLE[idx] = next;
+    }
+    persist();
+    closeDrawer();
+    renderAll();
+  });
+}
+
+function openStandardEditor(index) {
+  const isNew = index == null;
+  const s = isNew ? { title: "", why: "", how: "" } : JSON.parse(JSON.stringify(STANDARDS[index]));
+  const html = `
+    <form id="edit-form" onsubmit="return false;">
+      <h2>${isNew ? "Add Standard" : "Edit Standard"}</h2>
+      <div class="role-big">Day One Standards</div>
+      ${fieldInput("Title", "title", s.title)}
+      ${fieldInput("Why it matters", "why", s.why, { textarea: true, rows: 5 })}
+      ${fieldInput("How to apply", "how", s.how, { textarea: true, rows: 4 })}
+      <div class="form-actions">
+        <button type="button" class="cancel" id="form-cancel">Cancel</button>
+        <button type="button" class="save"   id="form-save">Save</button>
+      </div>
+    </form>
+  `;
+  openEditDrawer(html);
+  document.getElementById("form-cancel").addEventListener("click", closeDrawer);
+  document.getElementById("form-save").addEventListener("click", () => {
+    const v = collectForm(document.getElementById("edit-form"));
+    const next = { title: v.title.trim(), why: v.why.trim(), how: v.how.trim() };
+    if (!next.title) { alert("Title is required."); return; }
+    if (isNew) STANDARDS.push(next);
+    else STANDARDS[index] = next;
+    persist();
+    closeDrawer();
+    renderAll();
+  });
+}
+
+function openFlowEditor(index) {
+  const isNew = index == null;
+  const f = isNew ? { name: "", from_to: "", owner: "", verify: "", friction: "" } : JSON.parse(JSON.stringify(FLOWS[index]));
+  const html = `
+    <form id="edit-form" onsubmit="return false;">
+      <h2>${isNew ? "Add Flow" : "Edit Flow"}</h2>
+      <div class="role-big">Cross-entity flow</div>
+      ${fieldInput("Name", "name", f.name)}
+      ${fieldInput("From → To", "from_to", f.from_to)}
+      ${fieldInput("Owner today", "owner", f.owner, { textarea: true, rows: 2 })}
+      ${fieldInput("Verify", "verify", f.verify, { textarea: true, rows: 2 })}
+      ${fieldInput("Friction / open question", "friction", f.friction, { textarea: true, rows: 3 })}
+      <div class="form-actions">
+        <button type="button" class="cancel" id="form-cancel">Cancel</button>
+        <button type="button" class="save"   id="form-save">Save</button>
+      </div>
+    </form>
+  `;
+  openEditDrawer(html);
+  document.getElementById("form-cancel").addEventListener("click", closeDrawer);
+  document.getElementById("form-save").addEventListener("click", () => {
+    const v = collectForm(document.getElementById("edit-form"));
+    const next = { name: v.name.trim(), from_to: v.from_to.trim(), owner: v.owner.trim(), verify: v.verify.trim(), friction: v.friction.trim() };
+    if (!next.name) { alert("Name is required."); return; }
+    if (isNew) FLOWS.push(next);
+    else FLOWS[index] = next;
+    persist();
+    closeDrawer();
+    renderAll();
+  });
+}
+
+function openBreakGlassEditor(index) {
+  const isNew = index == null;
+  const b = isNew
+    ? { title: "", severity: "med", severity_label: "", primary: "", secondary: "", steps: [], escalate: "" }
+    : JSON.parse(JSON.stringify(BREAK_GLASS[index]));
+  const severityOptions = [
+    { value: "high", label: "High" },
+    { value: "med",  label: "Medium" },
+    { value: "low",  label: "Low" }
+  ];
+  const html = `
+    <form id="edit-form" onsubmit="return false;">
+      <h2>${isNew ? "Add Break-Glass Card" : "Edit Break-Glass Card"}</h2>
+      <div class="role-big">Emergency playbook</div>
+      ${fieldInput("Title", "title", b.title)}
+      ${fieldSelect("Severity", "severity", b.severity, severityOptions)}
+      ${fieldInput("Severity label", "severity_label", b.severity_label, { hint: "Short tag shown beside severity — e.g. 'Revenue stops'" })}
+      ${fieldInput("Primary", "primary", b.primary, { textarea: true, rows: 2 })}
+      ${fieldInput("Secondary / backup", "secondary", b.secondary, { textarea: true, rows: 2 })}
+      ${fieldInput("Steps (one per line)", "steps", (b.steps || []).join("\n"), { textarea: true, rows: 8 })}
+      ${fieldInput("Escalate to Joshua", "escalate", b.escalate, { textarea: true, rows: 3 })}
+      <div class="form-actions">
+        <button type="button" class="cancel" id="form-cancel">Cancel</button>
+        <button type="button" class="save"   id="form-save">Save</button>
+      </div>
+    </form>
+  `;
+  openEditDrawer(html);
+  document.getElementById("form-cancel").addEventListener("click", closeDrawer);
+  document.getElementById("form-save").addEventListener("click", () => {
+    const v = collectForm(document.getElementById("edit-form"));
+    const next = {
+      title: v.title.trim(),
+      severity: v.severity,
+      severity_label: v.severity_label.trim(),
+      primary: v.primary.trim(),
+      secondary: v.secondary.trim(),
+      steps: v.steps.split("\n").map(s => s.trim()).filter(Boolean),
+      escalate: v.escalate.trim()
+    };
+    if (!next.title) { alert("Title is required."); return; }
+    if (isNew) BREAK_GLASS.push(next);
+    else BREAK_GLASS[index] = next;
+    persist();
+    closeDrawer();
+    renderAll();
+  });
+}
+
+// ============================================================
+// Initial load
+// ============================================================
+loadFromStorage();
+
+renderPeople();
+renderTree();
+renderCadences();
+renderFlows();
+renderStandards();
+renderBreakGlass();
+</script>
+</body>
+</html>
