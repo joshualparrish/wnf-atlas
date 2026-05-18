@@ -1,5 +1,5 @@
 <!--
-  JOSHUA PARRISH — OPERATING ATLAS v2
+  JOSHUA PARRISH — MISSION CONTROL
   ================================================================
   Full atlas across all four entities:
     WNF Market · WNF Café · INVERT INC · Tao Capital / NOFONE
@@ -29,7 +29,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Operating Atlas — Joshua Parrish</title>
+<title>Mission Control — Joshua Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -708,6 +708,23 @@
   .tree-node.team { border-color: var(--panel-edge); color: var(--ink-dim); border-style: dashed; }
 
 
+
+  /* Brand logo row in header */
+  .brand-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 6px 0 6px;
+    font-family: "Archivo Black", Impact, sans-serif;
+    font-size: 18px; letter-spacing: 0.02em;
+  }
+  .brand-row .brand-text { color: var(--ink); text-transform: uppercase; letter-spacing: 0.5px; }
+  .brand-row .brand-sep { color: var(--ink-faint); font-family: "JetBrains Mono", monospace; font-size: 14px; }
+  .brand-row .wnf-mark { font-size: 16px; }
+  .brand-row .invert-mark { font-size: 16px; }
+  @media (max-width: 640px) {
+    .brand-row { font-size: 14px; }
+    .brand-row .wnf-mark, .brand-row .invert-mark { font-size: 13px; }
+  }
+
   /* ============================================================
      TIER LANDING — sections by tier, cards show entity chip
   ============================================================ */
@@ -1003,8 +1020,17 @@
 
 <header class="top">
   <div>
-    <h1>Operating Atlas</h1>
-    <div class="sub">Joshua Parrish · WNF Market · WNF Café · INVERT · Tao Capital — a starting reference for everyone on the team</div>
+    <h1>Mission Control</h1>
+    <div class="brand-row">
+      <span class="wnf-mark">WNF</span>
+      <span class="brand-text">Market</span>
+      <span class="brand-sep">·</span>
+      <span class="wnf-mark">WNF</span>
+      <span class="brand-text">Café</span>
+      <span class="brand-sep">·</span>
+      <span class="invert-mark">INVERT</span>
+    </div>
+    <div class="sub">Joshua Parrish — operating command for everyone on the team</div>
   </div>
   <div class="header-actions">
     <span class="edit-indicator">EDIT MODE</span>
