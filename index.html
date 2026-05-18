@@ -112,16 +112,40 @@
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.01em;
   }
+  
+  .cafe-mark {
+    display: inline-block;
+    font-family: "Archivo Black", Impact, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #FF3EC8 0%, #FFA33A 100%);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    box-shadow: 0 4px 14px -6px rgba(255,163,58,0.6);
+    line-height: 1;
+    vertical-align: baseline;
+    text-transform: uppercase;
+    margin-right: 0.15em;
+  }
+
   .invert-mark {
     display: inline-block;
     font-family: "Archivo Black", Impact, sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #b026ff 0%, #FFA33A 100%);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    box-shadow: 0 4px 14px -6px rgba(176,38,255,0.6);
     transform: rotate(180deg);
-    color: var(--ink);
-    -webkit-text-fill-color: var(--ink); /* override gradient-fill parents */
     margin-right: 0.18em;
     line-height: 1;
+    vertical-align: baseline;
   }
 
   header.top {
@@ -1022,11 +1046,9 @@
   <div>
     <h1>Mission Control</h1>
     <div class="brand-row">
-      <span class="wnf-mark">WNF</span>
-      <span class="brand-text">Market</span>
+      <span class="wnf-mark">WNF Market</span>
       <span class="brand-sep">·</span>
-      <span class="wnf-mark">WNF</span>
-      <span class="brand-text">Café</span>
+      <span class="cafe-mark">WNF Café</span>
       <span class="brand-sep">·</span>
       <span class="invert-mark">INVERT</span>
     </div>
@@ -2277,16 +2299,16 @@ function renderTree() {
         <div class="entity-meta">${e.tag}</div>
         ${commander.length ? `<div class="tree-tier"><div class="tier-label">Commander</div>${renderNodes(commander, 'commander')}</div>` : ''}
         ${seniorOp.length ? `<div class="tree-tier"><div class="tier-label">Senior Operator</div>${renderNodes(seniorOp, 'senior-operator')}</div>` : ''}
-        ${(entityKey === 'market') ? `<div class="tree-tier"><div class="tier-label">Squad Leads ${squadLead.length ? '' : '(3 seats open — pending promotion)'}</div>${squadLead.length ? renderNodes(squadLead, 'squad-lead') : '<div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div><div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div><div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div>'}</div>
+        ${(key === 'market') ? `<div class="tree-tier"><div class="tier-label">Squad Leads ${squadLead.length ? '' : '(3 seats open — pending promotion)'}</div>${squadLead.length ? renderNodes(squadLead, 'squad-lead') : '<div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div><div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div><div class="tree-node" style="border-style:dashed;color:var(--orange);border-color:var(--orange);">+ open seat</div>'}</div>
         <div class="tree-tier"><div class="tier-label">Rogue Rangers ${rogueRanger.length ? '' : '(open — pending promotion)'}</div>${rogueRanger.length ? renderNodes(rogueRanger, 'rogue-ranger') : '<div class="tree-node" style="border-style:dashed;color:var(--ink-faint);">open</div>'}</div>
         <div class="tree-tier"><div class="tier-label">Signal Carriers ${signalCarrier.length ? '' : '(open — pending promotion)'}</div>${signalCarrier.length ? renderNodes(signalCarrier, 'signal-carrier') : '<div class="tree-node" style="border-style:dashed;color:var(--ink-faint);">open</div>'}</div>
         <div class="tree-tier"><div class="tier-label">Rookies ${rookie.length ? '' : '(open — 30-day eval)'}</div>${rookie.length ? renderNodes(rookie, 'rookie') : '<div class="tree-node" style="border-style:dashed;color:var(--ink-faint);">open</div>'}</div>
         <div class="tree-tier"><div class="tier-label">Recruits ${recruit.length ? '' : '(open — first 1–2 weeks)'}</div>${recruit.length ? renderNodes(recruit, 'recruit') : '<div class="tree-node" style="border-style:dashed;color:var(--ink-faint);">open</div>'}</div>` : ''}
-        ${squadLead.length && entityKey !== 'market' ? `<div class="tree-tier"><div class="tier-label">Squad Leads</div>${renderNodes(squadLead, 'squad-lead')}</div>` : ''}
-        ${rogueRanger.length && entityKey !== 'market' ? `<div class="tree-tier"><div class="tier-label">Rogue Rangers</div>${renderNodes(rogueRanger, 'rogue-ranger')}</div>` : ''}
-        ${signalCarrier.length && entityKey !== 'market' ? `<div class="tree-tier"><div class="tier-label">Signal Carriers</div>${renderNodes(signalCarrier, 'signal-carrier')}</div>` : ''}
-        ${rookie.length && entityKey !== 'market' ? `<div class="tree-tier"><div class="tier-label">Rookies + specialists</div>${renderNodes(rookie, 'rookie')}</div>` : ''}
-        ${recruit.length && entityKey !== 'market' ? `<div class="tree-tier"><div class="tier-label">Recruits</div>${renderNodes(recruit, 'recruit')}</div>` : ''}
+        ${squadLead.length && key !== 'market' ? `<div class="tree-tier"><div class="tier-label">Squad Leads</div>${renderNodes(squadLead, 'squad-lead')}</div>` : ''}
+        ${rogueRanger.length && key !== 'market' ? `<div class="tree-tier"><div class="tier-label">Rogue Rangers</div>${renderNodes(rogueRanger, 'rogue-ranger')}</div>` : ''}
+        ${signalCarrier.length && key !== 'market' ? `<div class="tree-tier"><div class="tier-label">Signal Carriers</div>${renderNodes(signalCarrier, 'signal-carrier')}</div>` : ''}
+        ${rookie.length && key !== 'market' ? `<div class="tree-tier"><div class="tier-label">Rookies + specialists</div>${renderNodes(rookie, 'rookie')}</div>` : ''}
+        ${recruit.length && key !== 'market' ? `<div class="tree-tier"><div class="tier-label">Recruits</div>${renderNodes(recruit, 'recruit')}</div>` : ''}
         ${t1.length ? `<div class="tree-tier"><div class="tier-label">Managers</div>${renderNodes(t1, 'tier-1')}</div>` : ''}
         ${t2.length ? `<div class="tree-tier"><div class="tier-label">Leads</div>${renderNodes(t2, 'tier-2')}</div>` : ''}
         ${spec.length ? `<div class="tree-tier"><div class="tier-label">Team + specialists</div>${renderNodes(spec, '')}</div>` : ''}
