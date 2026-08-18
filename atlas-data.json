@@ -28,7 +28,7 @@
       "nick": "JP, Parrish, Hey Dude",
       "entity": "market",
       "role": "CEO · Change Agent · Soul Protector",
-      "tier": "owner",
+      "tier": "el-jefe",
       "badges": [
         "all-entities"
       ],
@@ -53,14 +53,14 @@
       "name": "Sam Switzer",
       "entity": "market",
       "role": "Floor Manager · Culture Queen · Change Agent · Soul Protector · Comms Lead · cross-entity Café kitchen consult",
-      "tier": "tier-1",
+      "tier": "commander",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-1",
         "knowledge",
         "cross-entity",
-        "dev"
+        "dev",
+        "og"
       ],
       "summary": "Floor manager, Culture Queen, and named change agent — paired with Joshua on the cultural and operational direction WNF is moving toward. Owns crew communication: the fireside chats, the hard conversations, the standard-setting talks. Soul protector on the floor: guards the customer-first heuristic and the team's spine against drift. When Joshua isn't in the building, Sam speaks for Joshua on culture, standard, and crew direction — her word IS Joshua's word in critical moments, edge cases, and unknowns.",
       "reports_to": "joshua",
@@ -68,7 +68,7 @@
         "lucina",
         "floor_staff_market"
       ],
-      "decision_authority": "Culture, comms, and standard-enforcement. Direction-setting on new initiatives, hiring filter, hard conversations with crew. New vendor relationships. Produce direction with Wendy. In critical moments / edge cases / unknowns when Joshua is unreachable, Sam speaks for Joshua — her call stands.",
+      "decision_authority": "Culture, comms, and standard-enforcement. Direction-setting on new initiatives, hiring filter, hard conversations with crew. New vendor relationships. Produce direction with Maddie. In critical moments / edge cases / unknowns when Joshua is unreachable, Sam speaks for Joshua — her call stands.",
       "systems": "OrderDog · WhenIWork · Toast (limited) · Café kitchen tools (consult days)",
       "archetype": "Knowledge",
       "cross_entity": "WNF Café — kitchen consulting on menu rollouts and equipment training",
@@ -80,12 +80,12 @@
       "nick": "T",
       "entity": "market",
       "role": "Floor Manager + BoH/Freight Lead · Change Agent · Soul Protector · Joshua's Deputy",
-      "tier": "tier-1",
+      "tier": "commander",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-1",
-        "knowledge"
+        "knowledge",
+        "og"
       ],
       "summary": "Floor Manager + BoH/Freight Lead. Joshua's named deputy and a change agent on the floor — paired with Joshua and Sam on the cultural and operational rebuild. Soul protector: holds the line on the standard, calls bullshit directly, defends the customer-first culture every shift. Owns BoH + receiving + freight + bulk logistics. In critical moments, edge cases, and unknowns when Joshua isn't reachable, Tyler speaks for Joshua — his call IS Joshua's call.",
       "reports_to": "joshua",
@@ -104,12 +104,12 @@
       "name": "Rachel Peppin",
       "entity": "market",
       "role": "Floor Manager · Logistics · Scheduling · Operations Maintenance",
-      "tier": "tier-1",
+      "tier": "senior-operator",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-1",
-        "knowledge"
+        "knowledge",
+        "og"
       ],
       "summary": "Floor manager and operations maintenance anchor. Keeps the existing system running smoothly — scheduling logistics, grocery / supplement / body-care / meat-dairy re-ordering volume, and shelf-state continuity. Deep product knowledge across the store. The maintainer of what's built.",
       "reports_to": "joshua",
@@ -125,15 +125,15 @@
     },
     {
       "id": "floor_lead_bench",
-      "name": "Floor Lead Bench (3 seats)",
+      "name": "Floor Lead Bench (3 more seats — coming)",
       "entity": "market",
       "role": "Expanded floor lead bench · direct report to Joshua · in promotion",
-      "tier": "hiring",
+      "tier": "squad-lead",
       "badges": [
         "hiring",
         "dev"
       ],
-      "summary": "Three new floor lead seats being promoted from within to expand FoH leadership coverage across the full week. Direct report to Joshua. Built to broaden the customer-service hero bench beyond the current four (Tyler · Sam · Rachel · Lucina) so the standard holds shift by shift, every shift. Named individuals confirmed as promotion decisions are finalized.",
+      "summary": "Three more floor lead seats being promoted from within to round out the Squad Lead bench (Lucina is the first one in). Will expand FoH leadership coverage across the full week. Direct report to Joshua. Built to broaden the customer-service hero bench beyond the current four (Tyler · Sam · Rachel · Lucina) so the standard holds shift by shift, every shift. Named individuals confirmed as promotion decisions are finalized.",
       "reports_to": "joshua",
       "direct_reports": [],
       "decision_authority": "Shift-level decisions, standard-enforcement on the floor, customer-service escalation handoff to Sam / Tyler / Joshua. Defined in detail at the time of promotion.",
@@ -147,12 +147,12 @@
       "name": "Lucina",
       "entity": "market",
       "role": "Floor Lead · customer-service standard-bearer",
-      "tier": "tier-2",
+      "tier": "squad-lead",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-2",
-        "passion"
+        "passion",
+        "og"
       ],
       "summary": "Floor lead. Customer-service-focused, deeply attentive to customers with complex concerns. Models WNF's customer-first standard on the floor — the heuristic that holds without supervision.",
       "reports_to": "rachel + sam",
@@ -169,11 +169,10 @@
       "nick": "Vanilla",
       "entity": "market",
       "role": "Floor / FoH tech guru in active development · Tier 3 → Tier 2 fast-track",
-      "tier": "tier-3",
+      "tier": "team",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-3",
         "dev"
       ],
       "summary": "Market floor team. Growing into the front-of-house technology and systems role — knows how the floor interacts with POS, hardware, and customer-facing tools.",
@@ -190,12 +189,12 @@
       "name": "Rocio",
       "entity": "market",
       "role": "Tier 2 anchor · weekly grocery ordering volume · process-correct",
-      "tier": "tier-2",
+      "tier": "rogue-ranger",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-2",
-        "knowledge"
+        "knowledge",
+        "og"
       ],
       "summary": "Long-tenured team member. Anchors weekly grocery ordering volume and keeps shelves stocked and tight.",
       "reports_to": "rachel",
@@ -207,36 +206,18 @@
       "watch_outs": "Reliable point of contact for grocery-side questions and shelf-state concerns."
     },
     {
-      "id": "wendy",
-      "name": "Wendy",
-      "entity": "market",
-      "role": "Anchors produce ordering with Sam · group-effort produce",
-      "tier": "specialist",
-      "phone": "",
-      "contact_label": "Ask a manager for contact info",
-      "badges": [
-        "knowledge"
-      ],
-      "summary": "Anchors produce ordering alongside Sam as a group-effort domain.",
-      "reports_to": "rachel",
-      "direct_reports": [],
-      "decision_authority": "Within produce ordering scope.",
-      "systems": "OrderDog",
-      "archetype": "Knowledge",
-      "cross_entity": "—",
-      "watch_outs": "Produce is anchored by Wendy + Sam but is a team effort — floor coverage on produce restocking is shared."
-    },
-    {
       "id": "bobby",
       "name": "Bobby",
       "nick": "The Bull",
       "entity": "market",
       "role": "Frozen freight receiving + stocking · BoH",
-      "tier": "specialist",
+      "tier": "rogue-ranger",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
-      "badges": [],
-      "summary": "Anchors frozen freight receiving and stocking. Knows the freezer rotation and vendors.",
+      "badges": [
+        "og"
+      ],
+      "summary": "Rogue Ranger keeping golden on all things cold or frozen — anchors frozen freight receiving and stocking, knows the freezer rotation and vendors. High autonomy on BoH cold-chain decisions.",
       "reports_to": "tyler",
       "direct_reports": [],
       "decision_authority": "Frozen receiving accept/reject, freezer organization.",
@@ -244,6 +225,26 @@
       "archetype": "—",
       "cross_entity": "—",
       "watch_outs": "First stop for frozen receiving questions on delivery days."
+    },
+    {
+      "id": "maddie",
+      "name": "Maddie",
+      "entity": "market",
+      "role": "Rogue Ranger · Anchors produce ordering",
+      "tier": "rogue-ranger",
+      "phone": "",
+      "contact_label": "Ask a manager for contact info",
+      "badges": [
+        "knowledge"
+      ],
+      "summary": "Rogue Ranger anchoring produce. High autonomy on produce ordering, freshness calls, vendor relationships. Takes over the produce seat as the new produce lead on the floor.",
+      "reports_to": "sam + tyler",
+      "direct_reports": [],
+      "decision_authority": "Produce ordering, freshness/quality calls, vendor coordination with Charlie's Produce.",
+      "systems": "OrderDog · CutAndDry (Charlie's online ordering)",
+      "archetype": "Knowledge",
+      "cross_entity": "—",
+      "watch_outs": "New to the seat — trust her produce calls and back her vendor decisions. Loop Sam on ordering questions early on."
     },
     {
       "id": "lee",
@@ -268,34 +269,36 @@
     },
     {
       "id": "ops_assistant",
-      "name": "Ops Assistant",
+      "name": "David Barshes",
       "entity": "all",
-      "role": "Cross-entity operations support · direct report to Joshua",
-      "tier": "hiring",
+      "role": "Ops Assistant · Chief-of-Staff scope · direct report to Joshua",
+      "tier": "ops-assistant",
+      "phone": "",
+      "contact_label": "WNF email: david@wnfinc.com · cell via a manager",
       "badges": [
-        "hiring",
-        "all-entities"
+        "all-entities",
+        "dev"
       ],
-      "summary": "Cross-entity operations support reporting directly to Joshua. Coordinates communication, schedules, and operations across WNF Market, WNF Café, and INVERT.",
+      "summary": "Joshua's Ops Assistant and force multiplier — chief-of-staff scope across all four entities. Coordinates communication, schedules, and operations across WNF Market, WNF Café, INVERT, and Joshua's calendar/comms. Trained to act autonomously and move without permission-seeking.",
       "reports_to": "joshua",
       "direct_reports": [],
-      "decision_authority": "Defined during onboarding.",
+      "decision_authority": "Acts as a direct extension of Joshua on comms, scheduling, and special projects. Scope expands through onboarding toward autonomous operational calls.",
       "systems": "OrderDog · Toast · QBO · WhenIWork · Notion · Gmail · Calendar",
       "archetype": "Both — Knowledge for ops fluency, Passion for relationship work",
       "cross_entity": "All four entities and Joshua's calendar/comms",
-      "watch_outs": "First 30 days focus on shadowing the morning office block, observing operations across both Market and Café, and learning the comms triage protocol."
+      "watch_outs": "New in seat (onboarding). First 30 days: shadow the morning office block, observe operations across Market and Café, learn the comms triage protocol. Build toward acting autonomously — route him work, not just questions."
     },
     {
       "id": "angela",
       "name": "Angela",
       "entity": "cafe",
       "role": "Café Manager · hospitality anchor · loyal executor",
-      "tier": "tier-1",
+      "tier": "commander",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-1",
-        "passion"
+        "passion",
+        "og"
       ],
       "summary": "Café manager. Anchors hospitality and guest experience — holds a high standard for how customers are taken care of. Partners with Joshua on Café operations and direction.",
       "reports_to": "joshua",
@@ -316,10 +319,12 @@
       "name": "Will",
       "entity": "cafe",
       "role": "Café co-manager · ordering + supplies",
-      "tier": "tier-2",
+      "tier": "senior-operator",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
-      "badges": [],
+      "badges": [
+        "og"
+      ],
       "summary": "Café co-manager. Anchors ordering, supplies, and back-of-house logistics. Partners with Angela on Café operations.",
       "reports_to": "joshua",
       "direct_reports": [],
@@ -334,11 +339,10 @@
       "name": "Noah",
       "entity": "cafe",
       "role": "Café Lead · CS strength · Toast POS pro",
-      "tier": "tier-2",
+      "tier": "squad-lead",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-2",
         "passion"
       ],
       "summary": "Café lead. Strong customer service. Anchors the Toast POS — handles data, cleanup, and the bridge between customer-facing transactions and back-of-house operations.",
@@ -357,11 +361,10 @@
       "name": "Dylan",
       "entity": "cafe",
       "role": "Café Lead · guest hospitality strength",
-      "tier": "tier-2",
+      "tier": "squad-lead",
       "phone": "",
       "contact_label": "Ask a manager for contact info",
       "badges": [
-        "tier-2",
         "passion"
       ],
       "summary": "Café lead. Anchors guest hospitality and service experience.",
@@ -718,42 +721,43 @@
     },
     {
       "id": "floor_staff_market",
-      "name": "Floor / Counter Team",
+      "name": "Rookies & Recruits — current roster",
       "entity": "market",
-      "role": "Market floor and counter team",
-      "tier": "tier-3",
-      "badges": [
-        "tier-3"
-      ],
-      "summary": "The Market floor and counter team — the people who greet customers at the door, work the registers, restock shelves, and carry WNF's customer service standard every shift.",
-      "reports_to": "rachel + sam + lucina",
+      "role": "Aggregate seat · individual cards not maintained · update names here",
+      "tier": "team",
+      "badges": [],
+      "summary": "Rookies (30-day evaluation, must show reliability, positive energy, basic guest service) and Recruits (first 1–2 weeks, just getting their feet wet). These team members rotate fast — individual cards aren't maintained. Update the roster below as people come in and graduate up the hierarchy.",
+      "reports_to": "sam + tyler + squad leads",
       "direct_reports": [],
-      "decision_authority": "Within shift scope.",
-      "systems": "OrderDog (cashier)",
-      "archetype": "Both Knowledge and Passion are valued",
+      "decision_authority": "Within shift scope. Promote to Signal Carrier when ready, per Commander review.",
+      "systems": "OrderDog (cashier basics)",
+      "archetype": "Develop both Knowledge and Passion",
       "cross_entity": "—",
-      "watch_outs": "If you're new on the team, watch how Lucina, Rocio, and the senior leads handle customer interactions — they model the standard."
+      "watch_outs": "ROOKIES (current): [edit here — names of staff in 30-day eval]. RECRUITS (current): [edit here — names of staff in first 1–2 weeks]. Watch how Sam, Tyler, and any Squad Leads on shift handle customers — that's the standard."
     },
     {
       "id": "cafe_crew",
-      "name": "Café Team (line + counter + baristas)",
+      "name": "Rookies & Recruits — Café roster",
       "entity": "cafe",
-      "role": "Café floor and kitchen team",
-      "tier": "tier-3",
-      "badges": [
-        "tier-3"
-      ],
-      "summary": "The Café team — line cooks, counter, and baristas who deliver the Café guest experience every service.",
+      "role": "Aggregate seat · individual cards not maintained · update names here",
+      "tier": "team",
+      "badges": [],
+      "summary": "Line cooks, counter, baristas in their first 1–2 weeks (Recruits) or 30-day eval (Rookies). Rotate fast — individual cards aren't maintained. Update the roster below.",
       "reports_to": "noah + dylan + angela",
       "direct_reports": [],
       "decision_authority": "Within shift scope.",
       "systems": "Toast",
       "archetype": "Passion drives the Café experience",
       "cross_entity": "—",
-      "watch_outs": "If you're new to the Café team, work alongside Noah and Dylan to learn how the service standard reads on the floor."
+      "watch_outs": "ROOKIES (current): [edit here]. RECRUITS (current): [edit here]. Work alongside Noah and Dylan to learn the standard."
     }
   ],
   "standards": [
+    {
+      "title": "The Market hierarchy — who does what",
+      "why": "Every role on the floor has a name and a job. The hierarchy isn't decoration — it's how decisions get made when Joshua isn't in the building. From top to bottom: <strong>El Jefe</strong> (Joshua) — final authority. <strong>Commander</strong> (Tyler · Sam) — primary change agents, full floor authority, drive culture and standards. <strong>Senior Operator</strong> (Rachel) — long-tenured systems owner; scheduling, ordering, inventory, the operational backbone. <strong>Ops Assistant</strong> — direct extension of El Jefe; special projects, comms, operational support. <strong>Squad Lead</strong> (3 seats) — floor-level leadership; when no Commander is present, Squad Lead is the highest authority on the floor and prioritizes guest amazement. <strong>Rogue Ranger</strong> — elite team member with high autonomy and leadership presence. <strong>Signal Carrier</strong> — core team member who delivers guest amazement and calls out problems in real time. <strong>Rookie</strong> — 30-day evaluation; must show reliability, positive energy, basic guest service. <strong>Recruit</strong> — first 1–2 weeks.",
+      "how": "Know your tier. Know who's above you and who's below. If Joshua isn't on-site and a call needs making, route to a Commander. If no Commander is present, the Squad Lead on shift has authority — prioritize guest amazement. The <strong>OG</strong> badge is separate from tier: it recognizes 2+ years of tenure and institutional knowledge. OG doesn't add operational authority — it's an honor."
+    },
     {
       "title": "Customer service is the heart of WNF",
       "why": "Our edge is the relationship we build with every customer who walks through the door. The work that defines WNF is on the floor — meeting customers, answering real questions, sharing what we know and what we love about products. Everything else supports that.",

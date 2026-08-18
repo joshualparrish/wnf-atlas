@@ -1062,7 +1062,7 @@
     <span class="edit-indicator">EDIT MODE</span>
     <span class="edited-badge" title="Local edits are saved in this browser">EDITED</span>
     <button id="lock-toggle" class="header-btn lock-btn" title="Unlock contact info">&#128274; Contacts</button>
-    <div class="version-pill">v2 · May 2026</div>
+    <div class="version-pill">v2.1 · Aug 2026</div>
     <button id="edit-toggle" class="header-btn" title="Toggle edit mode">&#9998; Edit</button>
     <div class="export-menu">
       <button id="export-btn" class="header-btn" title="Export / import">&#8682; Export</button>
@@ -2086,7 +2086,12 @@ function renderPeople(filter = "", tier = "all") {
     ${renderTierSection('ai-future', 'AI / Future Seats', 'Speculative roles and tools on the 12-month roadmap.', filter, tier)}
   `;
 
-  document.getElementById("search").addEventListener("input", e => renderPeople(e.target.value, tier));
+  document.getElementById("search").addEventListener("input", e => {
+    renderPeople(e.target.value, tier);
+    // renderPeople rebuilds the DOM — restore focus + caret so typing isn't interrupted
+    const s = document.getElementById("search");
+    if (s) { s.focus(); const n = s.value.length; try { s.setSelectionRange(n, n); } catch (err) {} }
+  });
   el.querySelectorAll(".filter-pill").forEach(btn => {
     btn.addEventListener("click", () => renderPeople(filter, btn.dataset.tier));
   });
@@ -2325,6 +2330,7 @@ function renderTree() {
   };
   const ownerCard = (() => {
     const j = PEOPLE.find(p => p.id === "joshua");
+    if (!j) return '';
     return `
       <div class="tree-entity" style="border-color:var(--pink); box-shadow:var(--glow-pink); grid-column:1/-1;">
         <h3>${j.name} <span class="nick">"${j.nick}"</span></h3>
@@ -2335,9 +2341,12 @@ function renderTree() {
   })();
   const opsAssistant = (() => {
     const o = PEOPLE.find(p => p.id === "ops_assistant");
+    if (!o) return '';
+    const hiringTag = (o.badges || []).includes('hiring') || o.tier === 'hiring'
+      ? ` <span style="color:var(--orange);">· hiring</span>` : '';
     return `
-      <div class="tree-entity" style="border-color:var(--orange); grid-column:1/-1;">
-        <h3>${o.name} <span style="color:var(--orange);">· hiring</span></h3>
+      <div class="tree-entity" style="border-color:var(--orange); grid-column:1/-1; cursor:pointer;" data-id="${o.id}">
+        <h3>${o.name}${hiringTag}</h3>
         <div class="entity-meta">${o.role}</div>
         <div style="font-size:13px; color:var(--ink); line-height:1.6;">${o.summary}</div>
       </div>
@@ -2354,7 +2363,7 @@ function renderTree() {
       ${buildEntity("tao")}
     </div>
   `;
-  el.querySelectorAll(".tree-node").forEach(n => n.addEventListener("click", () => openDrawer(n.dataset.id)));
+  el.querySelectorAll(".tree-node, .tree-entity[data-id]").forEach(n => n.addEventListener("click", () => openDrawer(n.dataset.id)));
 }
 
 function renderCadences() {
@@ -2513,8 +2522,21 @@ function escapeHtml(s) {
   return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// Strip vault-injected contact info so decrypted phone numbers can NEVER leak
+// into localStorage, Export JSON, or Export HTML. Restores the sanitized
+// pre-unlock values and drops the internal bookkeeping fields.
+function sanitizePerson(p) {
+  const c = JSON.parse(JSON.stringify(p));
+  if (c.__vaultPhone) c.phone = c.__origPhone || "";
+  if (c.__vaultLabel) c.contact_label = c.__origLabel || "";
+  delete c.__vaultPhone; delete c.__origPhone;
+  delete c.__vaultLabel; delete c.__origLabel;
+  return c;
+}
+function sanitizePeople(list) { return list.map(sanitizePerson); }
+
 function currentDataSnapshot() {
-  return { entities: ENTITIES, people: PEOPLE, standards: STANDARDS, week: WEEK, flows: FLOWS, break_glass: BREAK_GLASS, triage: TRIAGE };
+  return { entities: ENTITIES, people: sanitizePeople(PEOPLE), standards: STANDARDS, week: WEEK, flows: FLOWS, break_glass: BREAK_GLASS, triage: TRIAGE };
 }
 
 function persist() {
@@ -2727,8 +2749,8 @@ function makePersonId(name) {
 function openPersonEditor(id) {
   const isNew = !id;
   const p = isNew
-    ? { id: "", name: "", nick: "", role: "", entity: "market", tier: "tier-3", phone: "", contact_label: "Ask a manager for contact info", badges: [], summary: "", reports_to: "", direct_reports: [], decision_authority: "", systems: "", archetype: "", cross_entity: "", watch_outs: "" }
-    : JSON.parse(JSON.stringify(PEOPLE.find(x => x.id === id) || {}));
+    ? { id: "", name: "", nick: "", role: "", entity: "market", tier: "team", phone: "", contact_label: "Ask a manager for contact info", badges: [], summary: "", reports_to: "", direct_reports: [], decision_authority: "", systems: "", archetype: "", cross_entity: "", watch_outs: "" }
+    : sanitizePerson(PEOPLE.find(x => x.id === id) || {});
 
   const entityOptions = [
     { value: "market", label: "WNF Market" },
@@ -2738,15 +2760,22 @@ function openPersonEditor(id) {
     { value: "all",    label: "All / cross-entity" }
   ];
   const tierOptions = [
-    { value: "owner",      label: "Owner" },
-    { value: "tier-1",     label: "Tier 1 — Manager" },
-    { value: "tier-2",     label: "Tier 2 — Lead" },
-    { value: "tier-3",     label: "Tier 3 — Team" },
-    { value: "specialist", label: "Specialist" },
-    { value: "hiring",     label: "Hiring (open seat)" },
-    { value: "external",   label: "External partner" },
-    { value: "ai-future",  label: "AI / future seat" }
+    { value: "el-jefe",         label: "El Jefe" },
+    { value: "commander",       label: "Commander" },
+    { value: "senior-operator", label: "Senior Operator" },
+    { value: "ops-assistant",   label: "Ops Assistant" },
+    { value: "squad-lead",      label: "Squad Lead" },
+    { value: "rogue-ranger",    label: "Rogue Ranger" },
+    { value: "signal-carrier",  label: "Signal Carrier" },
+    { value: "team",            label: "Rookies / Recruits / Team" },
+    { value: "external",        label: "External partner" },
+    { value: "ai-future",       label: "AI / future seat" }
   ];
+  // Safety net: if a record carries an unknown tier, keep it selectable instead of
+  // silently snapping to the first option on save.
+  if (p.tier && !tierOptions.some(o => o.value === p.tier)) {
+    tierOptions.push({ value: p.tier, label: p.tier + " (legacy)" });
+  }
 
   const html = `
     <form id="edit-form" onsubmit="return false;">
@@ -2805,7 +2834,9 @@ function openPersonEditor(id) {
     }
     persist();
     closeDrawer();
-    renderAll();
+    // Re-apply unlocked contact info (display only — never persisted/exported)
+    if (VAULT_CONTACTS) injectContacts(VAULT_CONTACTS);
+    else renderAll();
   });
 }
 
@@ -2964,12 +2995,21 @@ async function decryptContacts(password) {
   return JSON.parse(new TextDecoder().decode(decrypted));
 }
 
+let VAULT_CONTACTS = null;
+
 function injectContacts(contacts) {
+  VAULT_CONTACTS = contacts;
   for (const p of PEOPLE) {
     const c = contacts[p.id];
     if (!c) continue;
-    if (c.phone) p.phone = c.phone;
-    if (c.contact_label) p.contact_label = c.contact_label;
+    if (c.phone) {
+      if (!p.__vaultPhone) p.__origPhone = p.phone || "";
+      p.phone = c.phone; p.__vaultPhone = true;
+    }
+    if (c.contact_label) {
+      if (!p.__vaultLabel) p.__origLabel = p.contact_label || "";
+      p.contact_label = c.contact_label; p.__vaultLabel = true;
+    }
   }
   document.body.classList.add('contacts-unlocked');
   const btn = document.getElementById('lock-toggle');
